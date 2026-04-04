@@ -1,0 +1,77 @@
+export const STUDENTS = [
+  { id: 1, name: '김민준', username: 'minjun_k', email: 'minjun@school.ac.kr', grade: '2학년 1반', solved: 42, score: 6820, streak: 14, joinedAt: '2026-03-02', lastActive: '2026-04-03', avatar: '김' },
+  { id: 2, name: '이서연', username: 'seoyeon_l', email: 'seoyeon@school.ac.kr', grade: '2학년 1반', solved: 38, score: 5940, streak: 9,  joinedAt: '2026-03-02', lastActive: '2026-04-04', avatar: '이' },
+  { id: 3, name: '박지호', username: 'jiho_p',    email: 'jiho@school.ac.kr',    grade: '2학년 1반', solved: 55, score: 8710, streak: 22, joinedAt: '2026-03-02', lastActive: '2026-04-04', avatar: '박' },
+  { id: 4, name: '최수아', username: 'sua_c',     email: 'sua@school.ac.kr',     grade: '2학년 1반', solved: 29, score: 4230, streak: 5,  joinedAt: '2026-03-02', lastActive: '2026-04-01', avatar: '최' },
+  { id: 5, name: '정우진', username: 'woojin_j',  email: 'woojin@school.ac.kr',  grade: '2학년 1반', solved: 18, score: 2810, streak: 2,  joinedAt: '2026-03-02', lastActive: '2026-03-31', avatar: '정' },
+  { id: 6, name: '강하은', username: 'haeun_k',   email: 'haeun@school.ac.kr',   grade: '2학년 1반', solved: 61, score: 9540, streak: 31, joinedAt: '2026-03-02', lastActive: '2026-04-04', avatar: '강' },
+  { id: 7, name: '윤도현', username: 'dohyun_y',  email: 'dohyun@school.ac.kr',  grade: '2학년 1반', solved: 33, score: 5100, streak: 7,  joinedAt: '2026-03-02', lastActive: '2026-04-02', avatar: '윤' },
+  { id: 8, name: '임예진', username: 'yejin_i',   email: 'yejin@school.ac.kr',   grade: '2학년 1반', solved: 47, score: 7350, streak: 18, joinedAt: '2026-03-02', lastActive: '2026-04-03', avatar: '임' },
+  { id: 9, name: '송태양', username: 'taeyang_s', email: 'taeyang@school.ac.kr', grade: '2학년 1반', solved: 11, score: 1640, streak: 0,  joinedAt: '2026-03-02', lastActive: '2026-03-25', avatar: '송' },
+  { id: 10,name: '오채원', username: 'chaewon_o', email: 'chaewon@school.ac.kr', grade: '2학년 1반', solved: 52, score: 8120, streak: 12, joinedAt: '2026-03-02', lastActive: '2026-04-04', avatar: '오' },
+]
+
+export const ASSIGNMENTS = [
+  {
+    id: 1,
+    title: '1주차 과제 — 배열과 해시',
+    description: '배열 탐색과 해시 테이블의 기본 개념을 익히는 문제들입니다.',
+    problems: [1, 4, 6],
+    dueDate: '2026-04-07',
+    createdAt: '2026-03-31',
+    status: 'active',
+    submissions: {
+      1:  { 1: 'ac', 4: 'ac', 6: 'ac' },
+      2:  { 1: 'ac', 4: 'wa', 6: 'ac' },
+      3:  { 1: 'ac', 4: 'ac', 6: 'ac' },
+      4:  { 1: 'wa', 4: null, 6: 'ac' },
+      5:  { 1: null, 4: null, 6: null },
+      6:  { 1: 'ac', 4: 'ac', 6: 'ac' },
+      7:  { 1: 'ac', 4: 'ac', 6: 'wa' },
+      8:  { 1: 'ac', 4: 'ac', 6: 'ac' },
+      9:  { 1: null, 4: null, 6: null },
+      10: { 1: 'ac', 4: 'ac', 6: 'ac' },
+    },
+  },
+  {
+    id: 2,
+    title: '2주차 과제 — 슬라이딩 윈도우',
+    description: '슬라이딩 윈도우 기법을 활용하여 부분 문자열 문제를 해결합니다.',
+    problems: [2, 7],
+    dueDate: '2026-04-14',
+    createdAt: '2026-04-07',
+    status: 'active',
+    submissions: {
+      1:  { 2: 'ac', 7: null },
+      2:  { 2: null, 7: null },
+      3:  { 2: 'ac', 7: 'ac' },
+      4:  { 2: null, 7: null },
+      5:  { 2: null, 7: null },
+      6:  { 2: 'ac', 7: 'ac' },
+      7:  { 2: null, 7: null },
+      8:  { 2: 'ac', 7: null },
+      9:  { 2: null, 7: null },
+      10: { 2: 'ac', 7: 'ac' },
+    },
+  },
+  {
+    id: 3,
+    title: '3주차 과제 — 분할 정복',
+    description: '이진 탐색과 분할 정복 패러다임을 활용하는 심화 문제들입니다.',
+    problems: [3, 5, 8],
+    dueDate: '2026-04-21',
+    createdAt: '2026-04-14',
+    status: 'upcoming',
+    submissions: {
+      1: {}, 2: {}, 3: {}, 4: {}, 5: {},
+      6: {}, 7: {}, 8: {}, 9: {}, 10: {},
+    },
+  },
+]
+
+export const CLASS_INFO = {
+  name: '2학년 1반 알고리즘반',
+  teacher: '홍길동 선생님',
+  totalStudents: 10,
+  semester: '2026년 1학기',
+}

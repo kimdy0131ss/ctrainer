@@ -1,0 +1,356 @@
+/* Legacy styles - not used by judge app */
+#app-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100svh;
+}
+
+#app-header {
+  padding: 40px 32px 24px;
+  text-align: center;
+  border-bottom: 1px solid var(--border);
+
+  h1 {
+    margin: 0 0 8px;
+  }
+  p {
+    color: var(--text);
+    margin: 0;
+  }
+
+  @media (max-width: 600px) {
+    padding: 24px 16px 16px;
+  }
+}
+
+/* ===== Tab Nav ===== */
+#tab-nav {
+  display: flex;
+  border-bottom: 1px solid var(--border);
+  overflow-x: auto;
+  scrollbar-width: none;
+  &::-webkit-scrollbar { display: none; }
+}
+
+.tab-btn {
+  flex: 1;
+  min-width: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 14px 12px;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 14px;
+  transition: color 0.2s, border-color 0.2s, background 0.2s;
+
+  &:hover {
+    background: var(--accent-bg);
+    color: var(--text-h);
+  }
+
+  &.active {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+    font-weight: 600;
+  }
+
+  .tab-icon {
+    font-size: 20px;
+  }
+
+  @media (max-width: 600px) {
+    .tab-label { display: none; }
+    .tab-icon { font-size: 24px; }
+    padding: 16px;
+    min-width: 64px;
+  }
+}
+
+/* ===== Tab Content ===== */
+#tab-content {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 32px 16px;
+}
+
+/* ===== Feature Card ===== */
+.feature-card {
+  width: 100%;
+  max-width: 560px;
+  background: var(--social-bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 32px;
+  box-shadow: var(--shadow);
+
+  h2 {
+    margin: 0 0 4px;
+    font-size: 22px;
+  }
+
+  @media (max-width: 600px) {
+    padding: 20px 16px;
+  }
+}
+
+.feature-desc {
+  color: var(--text);
+  margin: 0 0 20px;
+  font-size: 14px;
+}
+
+/* ===== Buttons ===== */
+.btn-primary {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-size: 15px;
+  font-family: var(--sans);
+  cursor: pointer;
+  transition: opacity 0.2s;
+
+  &:hover { opacity: 0.85; }
+  &:disabled { opacity: 0.4; cursor: not-allowed; }
+}
+
+.btn-secondary {
+  background: var(--code-bg);
+  color: var(--text-h);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-size: 15px;
+  font-family: var(--sans);
+  cursor: pointer;
+  transition: background 0.2s;
+
+  &:hover { background: var(--accent-bg); }
+  &:disabled { opacity: 0.4; cursor: not-allowed; }
+}
+
+/* ===== Todo ===== */
+.todo-input-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.todo-input {
+  flex: 1;
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 15px;
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--text-h);
+  outline: none;
+  transition: border-color 0.2s;
+
+  &:focus { border-color: var(--accent); }
+}
+
+.todo-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.todo-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg);
+  transition: opacity 0.2s;
+
+  &.done .todo-text {
+    text-decoration: line-through;
+    opacity: 0.5;
+  }
+}
+
+.todo-check {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: none;
+  cursor: pointer;
+  font-size: 14px;
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background 0.2s;
+
+  &:hover { background: var(--accent-bg); }
+}
+
+.todo-text {
+  flex: 1;
+  text-align: left;
+  font-size: 15px;
+  color: var(--text-h);
+}
+
+.todo-remove {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text);
+  font-size: 14px;
+  padding: 4px 6px;
+  border-radius: 4px;
+  transition: color 0.2s, background 0.2s;
+
+  &:hover { color: #ef4444; background: rgba(239,68,68,0.1); }
+}
+
+.todo-empty {
+  text-align: center;
+  color: var(--text);
+  padding: 24px 0;
+  font-size: 14px;
+}
+
+/* ===== Stopwatch ===== */
+.stopwatch-display {
+  font-size: 56px;
+  font-family: var(--mono);
+  font-weight: 600;
+  color: var(--text-h);
+  letter-spacing: 2px;
+  text-align: center;
+  margin: 20px 0 24px;
+
+  @media (max-width: 600px) { font-size: 40px; }
+}
+
+.stopwatch-btns {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.lap-list {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.lap-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 12px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.lap-num { color: var(--text); }
+.lap-time { font-family: var(--mono); color: var(--text-h); font-weight: 600; }
+
+/* ===== Quote ===== */
+.quote-box {
+  margin: 20px 0 24px;
+  padding: 24px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  transition: opacity 0.3s;
+
+  &.fade-out { opacity: 0; }
+  &.fade-in { opacity: 1; }
+}
+
+.quote-text {
+  font-size: 18px;
+  line-height: 1.6;
+  color: var(--text-h);
+  margin: 0 0 12px;
+  font-style: italic;
+}
+
+.quote-author {
+  font-size: 14px;
+  color: var(--accent);
+  margin: 0;
+  font-weight: 600;
+}
+
+.quote-btns {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+/* ===== Color Palette ===== */
+.palette {
+  display: flex;
+  height: 180px;
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 20px 0 0;
+  border: 1px solid var(--border);
+
+  @media (max-width: 480px) { height: 140px; }
+}
+
+.color-swatch {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 8px 4px;
+  transition: flex 0.3s;
+  cursor: pointer;
+
+  &:hover { flex: 1.5; }
+}
+
+.lock-btn,
+.copy-btn {
+  background: rgba(0,0,0,0.15);
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  padding: 4px;
+  font-size: 13px;
+  font-family: var(--mono);
+  backdrop-filter: blur(4px);
+  transition: background 0.2s;
+  width: 100%;
+
+  &:hover { background: rgba(0,0,0,0.3); }
+}
+
+.copy-btn {
+  font-size: 11px;
+  letter-spacing: 0.5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

@@ -1,0 +1,289 @@
+.page {
+  flex: 1;
+  padding: 40px 0 80px;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ── Profile header ─────────────────────── */
+.profileHeader {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-bottom: 40px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid var(--border);
+}
+
+.avatarLarge {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #2dd4bf, #a78bfa);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  font-weight: 700;
+  color: #080b12;
+  flex-shrink: 0;
+}
+
+.profileInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.displayName {
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: -0.6px;
+  color: var(--text-primary);
+}
+
+.handle {
+  font-size: 14px;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+}
+
+.profileBadges {
+  display: flex;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.rankBadge {
+  padding: 4px 12px;
+  border-radius: 20px;
+  background: rgba(167,139,250,0.1);
+  color: var(--accent-purple);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.streakBadge {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 12px;
+  border-radius: 20px;
+  background: rgba(251,146,60,0.1);
+  color: #fb923c;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* ── Layout ────────────────────────────── */
+.layout {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+@media (max-width: 800px) {
+  .layout { grid-template-columns: 1fr; }
+}
+
+/* ── Card ──────────────────────────────── */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 24px;
+  margin-bottom: 20px;
+}
+
+.cardTitle {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 20px;
+  letter-spacing: -0.2px;
+}
+
+/* ── Solved circle ─────────────────────── */
+.solvedCircle {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 24px;
+  width: 120px;
+  height: 120px;
+}
+
+.solvedCenter {
+  position: absolute;
+  display: flex;
+  align-items: baseline;
+  gap: 2px;
+}
+
+.solvedNum {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+}
+
+.solvedTotal {
+  font-size: 14px;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+}
+
+/* ── Diff breakdown ────────────────────── */
+.diffBreakdown {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.diffRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.diffEasy  { font-size: 12px; font-weight: 500; color: var(--easy);   width: 52px; flex-shrink: 0; }
+.diffMedium{ font-size: 12px; font-weight: 500; color: var(--medium); width: 52px; flex-shrink: 0; }
+.diffHard  { font-size: 12px; font-weight: 500; color: var(--hard);   width: 52px; flex-shrink: 0; }
+
+.diffBar {
+  flex: 1;
+  height: 5px;
+  border-radius: 3px;
+  background: rgba(255,255,255,0.06);
+  overflow: hidden;
+}
+
+.diffFill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.6s ease;
+}
+
+.diffCount {
+  font-size: 12px;
+  font-family: var(--font-mono);
+  color: var(--text-secondary);
+  width: 20px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+/* ── Stats list ────────────────────────── */
+.statsList { display: flex; flex-direction: column; gap: 0; }
+
+.statsRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.statsRow:last-child { border-bottom: none; }
+
+.statsLabel {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.statsVal {
+  font-size: 14px;
+  font-weight: 600;
+  font-family: var(--font-mono);
+  color: var(--text-primary);
+}
+
+/* ── Heatmap ───────────────────────────── */
+.heatmapHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.heatmapHeader .cardTitle { margin-bottom: 0; }
+
+.heatmapYear {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+}
+
+.heatmap {
+  display: grid;
+  grid-template-columns: repeat(52, 1fr);
+  grid-template-rows: repeat(7, 1fr);
+  grid-auto-flow: column;
+  gap: 3px;
+  overflow-x: auto;
+}
+
+.heatCell {
+  width: 11px;
+  height: 11px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.heatmapLegend {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 10px;
+  justify-content: flex-end;
+}
+
+.legendLabel {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+/* ── Solved list ────────────────────────── */
+.solvedList { display: flex; flex-direction: column; gap: 0; }
+
+.solvedRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+  text-decoration: none;
+  transition: background 0.12s;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.solvedRow:last-child { border-bottom: none; }
+
+.solvedRow:hover .solvedTitle {
+  color: var(--accent-teal);
+}
+
+.solvedCheck { flex-shrink: 0; display: flex; }
+
+.solvedTitle {
+  flex: 1;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-primary);
+  transition: color 0.12s;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.leftCol, .rightCol {
+  display: flex;
+  flex-direction: column;
+}
