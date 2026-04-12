@@ -73,10 +73,10 @@ export default function Teacher() {
       if (!user) { navigate('/login'); return }
 
       const { data: prof } = await supabase
-        .from('profiles').select('id, username, is_teacher').eq('id', user.id).single()
+        .from('profiles').select('id, username, is_teacher, is_admin').eq('id', user.id).single()
       setProfile(prof)
 
-      if (!prof?.is_teacher) { setNotTeacher(true); setInitialized(true); return }
+      if (!prof?.is_teacher && !prof?.is_admin) { setNotTeacher(true); setInitialized(true); return }
 
       const [{ data: cls }, { data: probs }] = await Promise.all([
         supabase.from('classrooms').select('*').eq('teacher_id', user.id).order('created_at'),
