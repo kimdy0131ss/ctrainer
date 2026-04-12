@@ -31,8 +31,10 @@ export default function Home() {
       .then(({ data, count: _ }) => {
         const hiddenIds = new Set((data || []).filter(p => p.hidden).map(p => p.id))
         const dbIds = new Set((data || []).map(p => p.id))
-        setProblemCount((data || []).filter(p => !p.hidden).length || STATS.totalProblems)
-        setFeatured(PROBLEMS.filter(p => !hiddenIds.has(p.id) && !dbIds.has(p.id)).slice(0, 3))
+        const visibleLocal = PROBLEMS.filter(p => !dbIds.has(p.id) && !hiddenIds.has(p.id))
+        const visibleDb = (data || []).filter(p => !p.hidden)
+        setProblemCount(visibleDb.length + visibleLocal.length)
+        setFeatured(visibleLocal.slice(0, 3))
       })
   }, [])
 
