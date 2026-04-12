@@ -120,7 +120,7 @@ export default function ProblemDetail() {
     const load = async () => {
       const { data } = await supabase
         .from('problems').select('*').eq('id', Number(id)).single()
-      setProblem(data ? normalizeDB(data) : (PROBLEMS.find(p => p.id === Number(id)) || null))
+      setProblem(data ? normalizeDB(data) : null)
       setLoading(false)
     }
     load()
@@ -148,17 +148,17 @@ export default function ProblemDetail() {
     setRunning(true)
     setVerdict(null)
     setTestResults(null)
-    const tc = problem.testCases?.[0]
-    if (!tc) {
-      setVerdict({ label: '테스트케이스가 없습니다.', color: '#fbbf24' })
+    const ex = problem.examples?.[0]
+    if (!ex) {
+      setVerdict({ label: '예시가 없습니다.', color: '#fbbf24' })
       setRunning(false)
       return
     }
     try {
-      const result = await runCode(currentCode, tc.input)
-      const r = parseResult(result, tc.expected)
+      const result = await runCode(currentCode, ex.input)
+      const r = parseResult(result, ex.output)
       let label
-      if (r.passed) label = `예시 테스트 통과 ✓   출력: ${normalizeOut(result.program_output)}`
+      if (r.passed) label = `예시 테스트 1 통과 ✓`
       else label = `${r.label}: ${r.detail}`
       setVerdict({ label, color: r.passed ? '#34d399' : r.label === '컴파일 오류' ? '#fb923c' : '#f87171' })
     } catch (e) {
