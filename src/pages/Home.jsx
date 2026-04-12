@@ -17,6 +17,8 @@ function StatCard({ value, label }) {
 export default function Home() {
   const [userCount, setUserCount] = useState(null)
   const [problemCount, setProblemCount] = useState(null)
+  const [submissionsToday, setSubmissionsToday] = useState(null)
+  const [totalAC, setTotalAC] = useState(null)
   const [featured, setFeatured] = useState([])
 
   useEffect(() => {
@@ -24,14 +26,30 @@ export default function Home() {
       .from('profiles')
       .select('id', { count: 'exact', head: true })
       .then(({ count }) => setUserCount(count ?? 0))
+    
     supabase
       .from('problems')
       .select('id, hidden')
-      .then(({ data, count: _ }) => {
+      .then(({ data }) => {
         const visibleDb = (data || []).filter(p => !p.hidden)
         setProblemCount(visibleDb.length)
         setFeatured(visibleDb.slice(0, 3))
       })
+    
+    // 오늘의 제출 수
+    const today = new Date().toISOString().split('T')[0]
+    supabase
+      .from('submissions')
+      .select('id', { count: 'exact' })
+      .gte('submitted_at', today + 'T00:00:00')
+      .then(({ count }) => setSubmissionsToday(count ?? 0))
+    
+    // 누적 정답 (AC)
+    supabase
+      .from('submissions')
+      .select('id', { count: 'exact' })
+      .eq('status', 'accepted')
+      .then(({ count }) => setTotalAC(count ?? 0))
   }, [])
 
   return (
@@ -67,8 +85,8 @@ export default function Home() {
           <div className={styles.statsGrid}>
             <StatCard value={problemCount ?? '—'} label="수록 문제 수" />
             <StatCard value={userCount ?? '—'} label="함께 준비 중인 코더" />
-            <StatCard value={0} label="오늘의 제출 수" />
-            <StatCard value={0} label="누적 정답 (AC)" />
+            <StatCard value={submissionsToday ?? '—'} label="오늘의 제출 수" />
+            <StatCard value={totalAC ?? '—'} label="누적 정답 (AC)" />
           </div>
         </div>
       </section>
