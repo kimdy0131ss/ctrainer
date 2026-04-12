@@ -31,21 +31,46 @@ export default function Problems() {
   const [selectedTag, setSelectedTag] = useState(null)
   const [status, setStatus] = useState('all')
   const [problems, setProblems] = useState([])
+  const [userId, setUserId] = useState(null)
+
+  useEffect(() => {
+    supabase.auth.getUser().then(({ data }) => {
+      setUserId(data?.user?.id || null)
+    })
+  }, [])
 
   useEffect(() => {
     const load = async () => {
       const { data } = await supabase.from('problems').select('*').order('id', { ascending: true })
       if (data && data.length > 0) {
-        const dbIds = new Set(data.map(p => p.id))
-        const hiddenIds = new Set(data.filter(p => p.hidden).map(p => p.id))
-        const merged = [
-          ...data.filter(p => !p.hidden).map(normalizeDB),
-        ].sort((a, b) => a.id - b.id)
+        const merged = data.filter(p => !p.hidden).map(normalizeDB)
         setProblems(merged)
       }
     }
     load()
   }, [])
+
+  useEffect(() => {
+    if (!userId || problems.length === 0) return
+    
+    const updateSolvedStatus = async () => {
+      const { data: solvedProblems } = await supabase
+        .from('solved_problems')
+        .select('problem_id')
+        .eq('user_id', userId)
+      
+      const solvedIds = new Set((solvedProblems || []).map(s => s.problem_id))
+      
+      setProblems(prev =>
+        prev.map(p => ({
+          ...p,
+          solved: solvedIds.has(p.id)
+        }))
+      )
+    }
+    
+    updateSolvedStatus()
+  }, [userId, problems.length])
 
   const allTags = [...new Set(problems.flatMap(p => p.tags))].sort()
 
@@ -119,7 +144,7 @@ export default function Problems() {
                 {allTags.map(tag => (
                   <button
                     key={tag}
-                    className={`${styles.tagBtn} ${selectedTag === tag ? styles.tagActive : ''}`}
+                    className={`${styles.filterBtn} ${selectedTag === tag ? styles.tagActive : ''}`}
                     onClick={() => setSelectedTag(selectedTag === tag ? null : tag)}
                   >
                     {tag}
