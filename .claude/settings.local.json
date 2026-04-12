@@ -22,7 +22,8 @@
       "Bash(git -C \"C:/Users/User/OneDrive/Desktop/ctrainer/my-react-app\" config user.email)",
       "Bash(git:*)",
       "Bash(gh repo:*)",
-      "Bash(curl:*)"
+      "Bash(curl:*)",
+      "Bash(npx vite:*)"
     ]
   }
 }

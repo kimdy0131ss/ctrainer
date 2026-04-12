@@ -44,8 +44,7 @@ export default function Home() {
             <span className={styles.gradient}>풀고. 겨루고. 성장하세요.</span>
           </h1>
           <p className={styles.heroSubtitle}>
-            알고리즘 문제를 풀고, 전 세계 개발자들과 경쟁하며,
-            나의 성장을 한눈에 확인하세요.
+            알고리즘 문제를 풀고, 전 세계 개발자들과 경쟁하며,<br />나의 성장을 한눈에 확인하세요.
           </p>
           <div className={styles.heroActions}>
             <Link to="/problems" className={styles.btnPrimary}>문제 풀기</Link>
