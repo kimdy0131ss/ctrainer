@@ -77,15 +77,11 @@ export default function Leaderboard() {
       const userSubs = subRows.filter(s => s.user_id === p.id)
       const periodSubs = start ? userSubs.filter(s => s.submitted_at >= start) : userSubs
 
-      let solved
-      if (period === 'alltime') {
-        solved = solvedRows.filter(s => s.user_id === p.id).length
-      } else {
-        // distinct accepted problems in the period
-        solved = new Set(
-          periodSubs.filter(s => s.status === 'accepted').map(s => s.problem_id)
-        ).size
-      }
+      // 전체/주간/월간 모두 submissions 기준으로 distinct accepted 문제 수 계산
+      const acceptedSubs = period === 'alltime'
+        ? userSubs.filter(s => s.status === 'accepted')
+        : periodSubs.filter(s => s.status === 'accepted')
+      const solved = new Set(acceptedSubs.map(s => s.problem_id)).size
 
       const totalSubs = periodSubs.length
       const streak = computeStreak(userSubs.map(s => s.submitted_at))
