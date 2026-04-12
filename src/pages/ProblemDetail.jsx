@@ -145,7 +145,7 @@ export default function ProblemDetail() {
     </div>
   )
 
-  const starterCode = problem.starterCode?.c || ''
+  const starterCode = problem.starterCode?.c || '#include <stdio.h>\n\nint main() {\n    \n    return 0;\n}'
   const currentCode = code || starterCode
 
   const handleRun = async () => {
