@@ -65,9 +65,6 @@ function parseResult(result, expected) {
   return {
     passed,
     label: passed ? '정답' : '오답',
-    detail: passed
-      ? `출력: ${programOut}`
-      : `출력: "${programOut}"  |  기대값: "${exp}"`,
   }
 }
 
@@ -197,8 +194,8 @@ export default function ProblemDetail() {
       allPassed = passed === results.length
       setVerdict({
         label: allPassed
-          ? `정답입니다! (${results.length}/${results.length} 통과)`
-          : `오답입니다 (${passed}/${results.length} 통과)`,
+          ? `정답입니다!`
+          : `오답입니다`,
         color: allPassed ? '#34d399' : '#f87171',
       })
     } catch (e) {
@@ -371,17 +368,6 @@ export default function ProblemDetail() {
                 <div className={styles.verdict} style={{ borderColor: verdict.color + '40', background: verdict.color + '10' }}>
                   <span className={styles.verdictDot} style={{ background: verdict.color }} />
                   <span className={styles.verdictLabel} style={{ color: verdict.color, whiteSpace: 'pre-wrap' }}>{verdict.label}</span>
-                </div>
-              )}
-
-              {testResults && (
-                <div className={styles.testResultsList}>
-                  {testResults.map((r, i) => (
-                    <div key={i} className={styles.testResultItem} style={{ borderLeft: `3px solid ${r.passed ? '#34d399' : '#f87171'}` }}>
-                      <span style={{ color: r.passed ? '#34d399' : '#f87171', fontWeight: 600 }}>테스트 {i + 1}: {r.label}</span>
-                      <span className={styles.testDetail}>{r.detail}</span>
-                    </div>
-                  ))}
                 </div>
               )}
 
