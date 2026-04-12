@@ -49,9 +49,9 @@
 
 .diffTile:hover { background: var(--bg-card-hover); }
 
-.diffTile.easy.active  { border-color: rgba(52,211,153,0.4); background: rgba(52,211,153,0.06); }
-.diffTile.medium.active { border-color: rgba(251,191,36,0.4); background: rgba(251,191,36,0.06); }
-.diffTile.hard.active  { border-color: rgba(248,113,113,0.4); background: rgba(248,113,113,0.06); }
+.diffTile.easy.active  { border-color: rgba(52,211,153,0.4); background: var(--easy-bg); }
+.diffTile.medium.active { border-color: rgba(251,191,36,0.4); background: var(--medium-bg); }
+.diffTile.hard.active  { border-color: rgba(248,113,113,0.4); background: var(--hard-bg); }
 
 .diffCount {
   font-size: 22px;
@@ -132,7 +132,7 @@
 }
 
 .filterActive {
-  background: rgba(45, 212, 191, 0.1) !important;
+  background: var(--teal-10) !important;
   color: var(--accent-teal) !important;
 }
 
@@ -161,9 +161,9 @@
 }
 
 .tagActive {
-  border-color: rgba(45,212,191,0.4) !important;
+  border-color: var(--teal-border) !important;
   color: var(--accent-teal) !important;
-  background: rgba(45,212,191,0.08) !important;
+  background: var(--teal-08) !important;
 }
 
 /* ── Main ──────────────────────────────── */
@@ -179,10 +179,11 @@
   background: var(--bg-card);
   margin-bottom: 16px;
   transition: border-color 0.15s;
+  box-shadow: var(--card-shadow);
 }
 
 .searchBar:focus-within {
-  border-color: rgba(45,212,191,0.4);
+  border-color: var(--teal-border);
 }
 
 .searchIcon { color: var(--text-muted); flex-shrink: 0; }
@@ -216,7 +217,9 @@
   display: grid;
   grid-template-columns: 44px 1fr 110px 100px;
   padding: 8px 16px;
-  border-bottom: 1px solid var(--border);
+  border: 1px solid var(--border);
+  border-radius: 12px 12px 0 0;
+  background: var(--bg-tag);
   font-size: 11px;
   font-weight: 600;
   color: var(--text-muted);
@@ -224,7 +227,16 @@
   letter-spacing: 0.6px;
 }
 
-.list { display: flex; flex-direction: column; }
+.list {
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-card);
+  border-radius: 0 0 12px 12px;
+  border: 1px solid var(--border);
+  border-top: none;
+  box-shadow: var(--card-shadow);
+  overflow: hidden;
+}
 
 .row {
   display: grid;
@@ -279,7 +291,7 @@
 .rowTag {
   padding: 2px 8px;
   border-radius: 4px;
-  background: rgba(255,255,255,0.04);
+  background: var(--bg-tag);
   font-size: 10px;
   color: var(--text-muted);
   border: 1px solid var(--border);

@@ -1,21 +1,56 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { PROBLEMS } from '../data/problems'
+import { supabase } from '../supabaseClient'
 import DifficultyBadge from '../components/judge/DifficultyBadge'
 import styles from './Problems.module.css'
 
-const ALL_TAGS = [...new Set(PROBLEMS.flatMap(p => p.tags))].sort()
+function normalizeDB(p) {
+  return {
+    id: p.id,
+    title: p.title || '',
+    difficulty: p.difficulty || 'easy',
+    tags: Array.isArray(p.tags) ? p.tags : [],
+    acceptance: p.acceptance || 0,
+    submissions: p.submissions || 0,
+    solved: false,
+    description: p.description || '',
+    examples: Array.isArray(p.examples) ? p.examples : [],
+    constraints: Array.isArray(p.constraints) ? p.constraints : [],
+    starterCode: { c: p.starter_c || '' },
+    testCases: Array.isArray(p.test_cases) ? p.test_cases : [],
+  }
+}
+
 const DIFFICULTIES = ['all', 'easy', 'medium', 'hard']
 const DIFF_LABELS = { all: '전체', easy: '쉬움', medium: '보통', hard: '어려움' }
 const STATUS_LABELS = { all: '전체', solved: '푼 문제', unsolved: '안 푼 문제' }
 
 export default function Problems() {
+  const [problems, setProblems] = useState(PROBLEMS)
   const [search, setSearch] = useState('')
   const [difficulty, setDifficulty] = useState('all')
   const [selectedTag, setSelectedTag] = useState(null)
   const [status, setStatus] = useState('all')
 
-  const filtered = PROBLEMS.filter(p => {
+  useEffect(() => {
+    const load = async () => {
+      const { data } = await supabase.from('problems').select('*').order('id', { ascending: true })
+      if (data && data.length > 0) {
+        const dbIds = new Set(data.map(p => p.id))
+        const merged = [
+          ...data.map(normalizeDB),
+          ...PROBLEMS.filter(p => !dbIds.has(p.id)),
+        ].sort((a, b) => a.id - b.id)
+        setProblems(merged)
+      }
+    }
+    load()
+  }, [])
+
+  const allTags = [...new Set(problems.flatMap(p => p.tags))].sort()
+
+  const filtered = problems.filter(p => {
     if (search && !p.title.toLowerCase().includes(search.toLowerCase())) return false
     if (difficulty !== 'all' && p.difficulty !== difficulty) return false
     if (selectedTag && !p.tags.includes(selectedTag)) return false
@@ -25,9 +60,9 @@ export default function Problems() {
   })
 
   const counts = {
-    easy: PROBLEMS.filter(p => p.difficulty === 'easy').length,
-    medium: PROBLEMS.filter(p => p.difficulty === 'medium').length,
-    hard: PROBLEMS.filter(p => p.difficulty === 'hard').length,
+    easy: problems.filter(p => p.difficulty === 'easy').length,
+    medium: problems.filter(p => p.difficulty === 'medium').length,
+    hard: problems.filter(p => p.difficulty === 'hard').length,
   }
 
   return (
@@ -35,10 +70,9 @@ export default function Problems() {
       <div className={styles.container}>
         <div className={styles.pageHeader}>
           <h1 className={styles.pageTitle}>문제</h1>
-          <p className={styles.pageSubtitle}>총 {PROBLEMS.length}개의 문제</p>
+          <p className={styles.pageSubtitle}>총 {problems.length}개의 문제</p>
         </div>
 
-        {/* 난이도 개요 */}
         <div className={styles.diffOverview}>
           {['easy', 'medium', 'hard'].map(d => (
             <button
@@ -53,7 +87,6 @@ export default function Problems() {
         </div>
 
         <div className={styles.layout}>
-          {/* 사이드바 */}
           <aside className={styles.sidebar}>
             <div className={styles.filterGroup}>
               <span className={styles.filterLabel}>상태</span>
@@ -84,7 +117,7 @@ export default function Problems() {
             <div className={styles.filterGroup}>
               <span className={styles.filterLabel}>태그</span>
               <div className={styles.tagCloud}>
-                {ALL_TAGS.map(tag => (
+                {allTags.map(tag => (
                   <button
                     key={tag}
                     className={`${styles.tagBtn} ${selectedTag === tag ? styles.tagActive : ''}`}
@@ -97,7 +130,6 @@ export default function Problems() {
             </div>
           </aside>
 
-          {/* 메인 */}
           <main className={styles.main}>
             <div className={styles.searchBar}>
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className={styles.searchIcon}>

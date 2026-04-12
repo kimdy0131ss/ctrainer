@@ -9,6 +9,24 @@
   padding: 0 24px;
 }
 
+/* ── Not found ─────────────────────────── */
+.notFound {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  min-height: 400px;
+  color: var(--text-secondary);
+  font-size: 15px;
+}
+
+.backLink {
+  color: var(--accent-teal);
+  text-decoration: none;
+  font-size: 14px;
+}
+
 /* ── Profile header ─────────────────────── */
 .profileHeader {
   display: flex;
@@ -23,13 +41,13 @@
   width: 80px;
   height: 80px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #2dd4bf, #a78bfa);
+  background: var(--gradient-accent);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 32px;
   font-weight: 700;
-  color: #080b12;
+  color: #fff;
   flex-shrink: 0;
 }
 
@@ -56,27 +74,28 @@
   display: flex;
   gap: 8px;
   margin-top: 4px;
+  flex-wrap: wrap;
 }
 
-.rankBadge {
-  padding: 4px 12px;
-  border-radius: 20px;
-  background: rgba(167,139,250,0.1);
-  color: var(--accent-purple);
-  font-size: 12px;
-  font-weight: 600;
+.adminBadge {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  background: linear-gradient(135deg, #f59e0b, #ef4444);
+  color: #000;
+  border-radius: 5px;
+  padding: 3px 8px;
+  letter-spacing: 0.5px;
 }
 
-.streakBadge {
-  display: flex;
-  align-items: center;
-  gap: 5px;
+.solvedBadge {
   padding: 4px 12px;
   border-radius: 20px;
-  background: rgba(251,146,60,0.1);
-  color: #fb923c;
+  background: var(--teal-10);
+  color: var(--accent-teal);
   font-size: 12px;
   font-weight: 600;
+  border: 1px solid var(--teal-border-sm);
 }
 
 /* ── Layout ────────────────────────────── */
@@ -98,6 +117,7 @@
   border-radius: 14px;
   padding: 24px;
   margin-bottom: 20px;
+  box-shadow: var(--card-shadow);
 }
 
 .cardTitle {
@@ -106,6 +126,13 @@
   color: var(--text-primary);
   margin-bottom: 20px;
   letter-spacing: -0.2px;
+}
+
+.empty {
+  color: var(--text-muted);
+  font-size: 13px;
+  padding: 12px 0;
+  text-align: center;
 }
 
 /* ── Solved circle ─────────────────────── */
@@ -122,8 +149,9 @@
 .solvedCenter {
   position: absolute;
   display: flex;
-  align-items: baseline;
-  gap: 2px;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
 }
 
 .solvedNum {
@@ -131,12 +159,14 @@
   font-weight: 700;
   color: var(--text-primary);
   font-family: var(--font-mono);
+  line-height: 1;
 }
 
-.solvedTotal {
-  font-size: 14px;
+.solvedTotalLabel {
+  font-size: 11px;
   color: var(--text-muted);
   font-family: var(--font-mono);
+  margin-top: 2px;
 }
 
 /* ── Diff breakdown ────────────────────── */
@@ -152,15 +182,18 @@
   gap: 10px;
 }
 
-.diffEasy  { font-size: 12px; font-weight: 500; color: var(--easy);   width: 52px; flex-shrink: 0; }
-.diffMedium{ font-size: 12px; font-weight: 500; color: var(--medium); width: 52px; flex-shrink: 0; }
-.diffHard  { font-size: 12px; font-weight: 500; color: var(--hard);   width: 52px; flex-shrink: 0; }
+.diffLabel {
+  font-size: 12px;
+  font-weight: 500;
+  width: 52px;
+  flex-shrink: 0;
+}
 
 .diffBar {
   flex: 1;
   height: 5px;
   border-radius: 3px;
-  background: rgba(255,255,255,0.06);
+  background: var(--border);
   overflow: hidden;
 }
 
@@ -286,4 +319,158 @@
 .leftCol, .rightCol {
   display: flex;
   flex-direction: column;
+}
+
+.teacherBadge {
+  padding: 4px 12px;
+  border-radius: 20px;
+  background: var(--teal-10);
+  color: var(--accent-teal);
+  font-size: 12px;
+  font-weight: 600;
+  border: 1px solid var(--teal-border-sm);
+}
+
+/* ── Self section (invites + classrooms) ── */
+.selfSection {
+  margin-top: 32px;
+  padding-top: 32px;
+  border-top: 1px solid var(--border);
+}
+
+.inviteList {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.inviteRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+}
+.inviteRow:last-child { border-bottom: none; }
+
+.inviteInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.inviteName {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.inviteTeacher {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+}
+
+.inviteActions {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.acceptBtn {
+  padding: 6px 14px;
+  border-radius: 8px;
+  border: none;
+  background: rgba(52, 211, 153, 0.15);
+  color: var(--easy);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.12s;
+}
+.acceptBtn:hover { background: rgba(52, 211, 153, 0.25); }
+
+.declineBtn {
+  padding: 6px 14px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: none;
+  color: var(--text-muted);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 0.12s;
+}
+.declineBtn:hover { color: var(--hard); border-color: rgba(248,113,113,0.3); }
+
+.classroomList {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.classroomItem {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+}
+.classroomItem:last-child { border-bottom: none; padding-bottom: 0; }
+
+.classroomHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.classroomName {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.classroomTeacher {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+}
+
+.assignmentItem {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 10px 12px;
+  background: var(--bg-card);
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
+
+.assignItemTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+.assignItemTitle {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.assignItemMeta {
+  font-size: 12px;
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  white-space: nowrap;
+}
+
+.assignProgressBar {
+  height: 4px;
+  border-radius: 2px;
+  background: var(--border);
+  overflow: hidden;
 }

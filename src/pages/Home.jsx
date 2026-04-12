@@ -1,12 +1,15 @@
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { PROBLEMS, STATS } from '../data/problems'
+import { supabase } from '../supabaseClient'
 import DifficultyBadge from '../components/judge/DifficultyBadge'
 import styles from './Home.module.css'
 
 function StatCard({ value, label }) {
+  const display = typeof value === 'number' ? value.toLocaleString() : value
   return (
     <div className={styles.statCard}>
-      <span className={styles.statValue}>{value.toLocaleString()}</span>
+      <span className={styles.statValue}>{display}</span>
       <span className={styles.statLabel}>{label}</span>
     </div>
   )
@@ -14,6 +17,14 @@ function StatCard({ value, label }) {
 
 export default function Home() {
   const featured = PROBLEMS.slice(0, 3)
+  const [userCount, setUserCount] = useState(null)
+
+  useEffect(() => {
+    supabase
+      .from('profiles')
+      .select('id', { count: 'exact', head: true })
+      .then(({ count }) => setUserCount(count ?? 0))
+  }, [])
 
   return (
     <div className={styles.page}>
@@ -47,10 +58,10 @@ export default function Home() {
       <section className={styles.statsSection}>
         <div className={styles.container}>
           <div className={styles.statsGrid}>
-            <StatCard value={STATS.totalProblems} label="전체 문제 수" />
-            <StatCard value={STATS.totalUsers} label="활성 사용자" />
+            <StatCard value={STATS.totalProblems} label="수록 문제 수" />
+            <StatCard value={userCount ?? '—'} label="함께 준비 중인 코더" />
             <StatCard value={STATS.submissionsToday} label="오늘의 제출 수" />
-            <StatCard value={STATS.easySolved + STATS.mediumSolved + STATS.hardSolved} label="풀린 문제 수" />
+            <StatCard value={STATS.totalAC} label="누적 정답 (AC)" />
           </div>
         </div>
       </section>
@@ -106,7 +117,7 @@ export default function Home() {
 
       <footer className={styles.footer}>
         <div className={styles.container}>
-          <p className={styles.footerText}>© 2026 hexjudge. 코더를 위해, 코더가 만든 플랫폼.</p>
+          <p className={styles.footerText}>© 2026 CTruct. 코더를 위해, 코더가 만든 플랫폼.</p>
         </div>
       </footer>
     </div>

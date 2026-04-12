@@ -28,6 +28,85 @@
   --hard-bg: rgba(248, 113, 113, 0.1);
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-mono: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+  --bg-nav: rgba(8, 11, 18, 0.78);
+  --bg-nav-mobile: rgba(8, 11, 18, 0.97);
+  --heat-empty: rgba(255, 255, 255, 0.05);
+  --bg-subtle: rgba(255, 255, 255, 0.015);
+  --bg-progress: rgba(255, 255, 255, 0.07);
+  --bg-tag: rgba(255, 255, 255, 0.04);
+  --avatar-border: rgba(255, 255, 255, 0.10);
+  --spinner-track: rgba(255, 255, 255, 0.10);
+  /* Accent gradient & alpha helpers */
+  --gradient-accent: linear-gradient(135deg, #2dd4bf, #a78bfa);
+  --gradient-accent-h: linear-gradient(90deg, #2dd4bf, #a78bfa);
+  --gradient-avatar: linear-gradient(135deg, rgba(45,212,191,0.3), rgba(167,139,250,0.3));
+  --teal-10: rgba(45, 212, 191, 0.10);
+  --teal-08: rgba(45, 212, 191, 0.08);
+  --teal-06: rgba(45, 212, 191, 0.06);
+  --teal-15: rgba(45, 212, 191, 0.15);
+  --teal-border: rgba(45, 212, 191, 0.40);
+  --teal-border-sm: rgba(45, 212, 191, 0.20);
+  --purple-08: rgba(167, 139, 250, 0.08);
+  --purple-border: rgba(167, 139, 250, 0.30);
+  --card-shadow: none;
+}
+
+[data-theme="light"] {
+  /* ── Structure (solid values — no more invisible transparencies) ── */
+  --bg-primary:    #e8edf4;   /* page bg — distinctly gray-blue */
+  --bg-secondary:  #ffffff;   /* panel / editor surface */
+  --bg-card:       #ffffff;   /* card — white on gray bg = clear separation */
+  --bg-card-hover: #f4f7fb;   /* card hover */
+  --border:        #c9d2df;   /* solid, always-visible border */
+  --border-hover:  #8595ae;   /* stronger on hover */
+
+  /* ── Text (solid, not opacity-based) ── */
+  --text-primary:   #0f172a;  /* near-black */
+  --text-secondary: #475569;  /* slate-600 — readable secondary */
+  --text-muted:     #8898aa;  /* slate-500 — visible but clearly quiet */
+
+  /* ── Accents ── */
+  --accent-teal:    #0d9488;
+  --accent-cyan:    #0891b2;
+  --accent-purple:  #7c3aed;
+  --accent-lavender: #8b5cf6;
+
+  /* ── Difficulty (solid badge backgrounds) ── */
+  --easy:     #059669;
+  --easy-bg:  #d1fae5;
+  --medium:   #b45309;
+  --medium-bg: #fef3c7;
+  --hard:     #dc2626;
+  --hard-bg:  #fee2e2;
+
+  /* ── Nav ── */
+  --bg-nav:        rgba(232, 237, 244, 0.94);
+  --bg-nav-mobile: rgba(232, 237, 244, 0.99);
+
+  /* ── Utility ── */
+  --heat-empty:    #dde3ed;
+  --bg-subtle:     #f4f7fb;
+  --bg-progress:   #dde3ed;
+  --bg-tag:        #eef2f7;
+  --avatar-border: #c9d2df;
+  --spinner-track: #c9d2df;
+
+  /* ── Accent gradients ── */
+  --gradient-accent:   linear-gradient(135deg, #0d9488, #7c3aed);
+  --gradient-accent-h: linear-gradient(90deg, #0d9488, #7c3aed);
+  --gradient-avatar:   linear-gradient(135deg, rgba(13,148,136,0.18), rgba(124,58,237,0.18));
+
+  /* ── Teal / purple alpha (on white cards) ── */
+  --teal-10:       rgba(13, 148, 136, 0.13);
+  --teal-08:       rgba(13, 148, 136, 0.10);
+  --teal-06:       rgba(13, 148, 136, 0.08);
+  --teal-15:       rgba(13, 148, 136, 0.18);
+  --teal-border:   rgba(13, 148, 136, 0.55);
+  --teal-border-sm: rgba(13, 148, 136, 0.35);
+  --purple-08:     rgba(124, 58, 237, 0.10);
+  --purple-border: rgba(124, 58, 237, 0.45);
+
+  --card-shadow: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04);
 }
 
 html {
@@ -55,11 +134,21 @@ body {
 ::-webkit-scrollbar-track { background: var(--bg-primary); }
 ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 3px; }
 ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.18); }
+[data-theme="light"] ::-webkit-scrollbar-track { background: var(--bg-primary); }
+[data-theme="light"] ::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.14); }
+[data-theme="light"] ::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,0.24); }
 
 ::selection {
-  background: rgba(45, 212, 191, 0.22);
-  color: #fff;
+  background: rgba(45, 212, 191, 0.28);
+  color: var(--text-primary);
 }
 
 a { color: inherit; text-decoration: none; }
 button { cursor: pointer; font-family: var(--font-sans); }
+
+/* ── Light mode utilities ───────────────── */
+[data-theme="light"] input,
+[data-theme="light"] textarea,
+[data-theme="light"] select {
+  color-scheme: light;
+}

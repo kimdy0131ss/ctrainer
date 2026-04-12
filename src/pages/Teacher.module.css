@@ -8,7 +8,7 @@
 /* ── Sidebar ───────────────────────────── */
 .sidebar {
   border-right: 1px solid var(--border);
-  background: rgba(255,255,255,0.015);
+  background: var(--bg-subtle);
   display: flex;
   flex-direction: column;
   padding: 24px 16px;
@@ -25,15 +25,15 @@
   gap: 10px;
   padding: 14px 12px;
   border-radius: 10px;
-  background: rgba(45,212,191,0.06);
-  border: 1px solid rgba(45,212,191,0.15);
+  background: var(--teal-06);
+  border: 1px solid var(--teal-border-sm);
   margin-bottom: 12px;
 }
 
 .classIcon {
   width: 36px; height: 36px;
   border-radius: 8px;
-  background: rgba(45,212,191,0.1);
+  background: var(--teal-10);
   display: flex; align-items: center; justify-content: center;
   flex-shrink: 0;
 }
@@ -50,6 +50,34 @@
   color: var(--text-muted);
   margin-top: 2px;
 }
+
+.classSelect {
+  background: none;
+  border: none;
+  outline: none;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-primary);
+  cursor: pointer;
+  width: 100%;
+  font-family: var(--font-sans);
+}
+
+.newClassBtn {
+  width: 100%;
+  padding: 7px 12px;
+  border-radius: 8px;
+  border: 1px dashed var(--border-hover);
+  background: none;
+  color: var(--text-muted);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  text-align: left;
+  transition: color 0.12s, border-color 0.12s;
+  margin-bottom: 4px;
+}
+.newClassBtn:hover { color: var(--accent-teal); border-color: var(--teal-border); }
 
 .nav {
   display: flex;
@@ -77,18 +105,18 @@
 .navItem:hover { background: var(--bg-card); color: var(--text-primary); }
 
 .navActive {
-  background: rgba(45,212,191,0.1) !important;
+  background: var(--teal-10) !important;
   color: var(--accent-teal) !important;
 }
 
 .navAccent {
   margin-top: 8px;
-  border: 1px dashed rgba(167,139,250,0.3);
+  border: 1px dashed var(--purple-border);
   color: var(--accent-purple);
 }
 
 .navAccent:hover {
-  background: rgba(167,139,250,0.08) !important;
+  background: var(--purple-08) !important;
   color: var(--accent-lavender) !important;
 }
 
@@ -111,9 +139,9 @@
 .teacherAvatar {
   width: 32px; height: 32px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #2dd4bf, #a78bfa);
+  background: var(--gradient-accent);
   display: flex; align-items: center; justify-content: center;
-  font-size: 13px; font-weight: 700; color: #080b12;
+  font-size: 13px; font-weight: 700; color: #fff;
   flex-shrink: 0;
 }
 
@@ -220,6 +248,7 @@
   border: 1px solid var(--border);
   border-radius: 14px;
   padding: 24px;
+  box-shadow: var(--card-shadow);
 }
 
 .cardHeader {
@@ -247,6 +276,109 @@
 /* ── Mini Table ────────────────────────── */
 .miniTable { display: flex; flex-direction: column; gap: 0; }
 
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  min-height: 200px;
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+.emptySmall {
+  color: var(--text-muted);
+  font-size: 13px;
+  padding: 12px 0;
+  text-align: center;
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+}
+
+.modal {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 28px;
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.modalTitle {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.4px;
+}
+
+.modalActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.inviteBox {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.inviteRow {
+  display: flex;
+  gap: 10px;
+}
+
+.pendingList {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.pendingLabel {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.pendingChip {
+  font-size: 11px;
+  color: #fbbf24;
+  background: rgba(251,191,36,0.1);
+  border: 1px solid rgba(251,191,36,0.2);
+  padding: 2px 8px;
+  border-radius: 20px;
+}
+
+.deleteAssignBtn {
+  padding: 6px 14px;
+  border-radius: 8px;
+  border: 1px solid rgba(248,113,113,0.3);
+  background: none;
+  color: var(--hard);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.12s;
+}
+.deleteAssignBtn:hover { background: rgba(248,113,113,0.08); }
+
 .miniTableHead {
   display: grid;
   grid-template-columns: 1fr 60px 60px 90px 70px;
@@ -270,7 +402,7 @@
   border-radius: 6px;
   padding: 10px 8px;
 }
-.miniTableRow:hover { background: rgba(255,255,255,0.03); }
+.miniTableRow:hover { background: var(--bg-tag); }
 .miniTableRow:last-child { border-bottom: none; }
 
 .miniUser {
@@ -285,8 +417,8 @@
 .miniAvatar {
   width: 26px; height: 26px;
   border-radius: 50%;
-  background: linear-gradient(135deg, rgba(45,212,191,0.3), rgba(167,139,250,0.3));
-  border: 1px solid rgba(255,255,255,0.1);
+  background: var(--gradient-avatar);
+  border: 1px solid var(--avatar-border);
   display: flex; align-items: center; justify-content: center;
   font-size: 11px; font-weight: 700;
   color: var(--text-primary);
@@ -354,14 +486,14 @@
 .progressBar {
   height: 4px;
   border-radius: 2px;
-  background: rgba(255,255,255,0.07);
+  background: var(--bg-progress);
   overflow: hidden;
 }
 
 .progressFill {
   height: 100%;
   border-radius: 2px;
-  background: linear-gradient(90deg, #2dd4bf, #a78bfa);
+  background: var(--gradient-accent-h);
   transition: width 0.6s ease;
 }
 
@@ -378,10 +510,11 @@
   border-radius: 14px;
   padding: 20px;
   cursor: pointer;
-  transition: background 0.12s, border-color 0.12s, transform 0.12s;
+  transition: background 0.12s, border-color 0.12s, transform 0.12s, box-shadow 0.12s;
   display: flex;
   flex-direction: column;
   gap: 8px;
+  box-shadow: var(--card-shadow);
 }
 .studentCard:hover {
   background: var(--bg-card-hover);
@@ -398,8 +531,8 @@
 .studentAvatar {
   width: 44px; height: 44px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #2dd4bf40, #a78bfa40);
-  border: 1px solid rgba(255,255,255,0.1);
+  background: var(--gradient-avatar);
+  border: 1px solid var(--avatar-border);
   display: flex; align-items: center; justify-content: center;
   font-size: 18px; font-weight: 700;
   color: var(--text-primary);
@@ -448,14 +581,14 @@
   flex: 1;
   height: 4px;
   border-radius: 2px;
-  background: rgba(255,255,255,0.07);
+  background: var(--bg-progress);
   overflow: hidden;
 }
 
 .solveFill {
   height: 100%;
   border-radius: 2px;
-  background: linear-gradient(90deg, #2dd4bf, #a78bfa);
+  background: var(--gradient-accent-h);
 }
 
 .solvePct { font-size: 11px; color: var(--text-muted); font-family: var(--font-mono); }
@@ -472,7 +605,7 @@
   color: var(--text-muted);
   transition: border-color 0.15s;
 }
-.searchBar:focus-within { border-color: rgba(45,212,191,0.4); }
+.searchBar:focus-within { border-color: var(--teal-border); }
 
 .searchInput {
   flex: 1;
@@ -496,9 +629,9 @@
 .detailAvatar {
   width: 64px; height: 64px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #2dd4bf, #a78bfa);
+  background: var(--gradient-accent);
   display: flex; align-items: center; justify-content: center;
-  font-size: 26px; font-weight: 700; color: #080b12;
+  font-size: 26px; font-weight: 700; color: #fff;
   flex-shrink: 0;
 }
 
@@ -580,8 +713,8 @@
   padding: 8px 18px;
   border-radius: 9px;
   border: none;
-  background: linear-gradient(135deg, #2dd4bf, #a78bfa);
-  color: #080b12;
+  background: var(--gradient-accent);
+  color: #fff;
   font-size: 13px;
   font-weight: 700;
   cursor: pointer;
@@ -674,7 +807,7 @@
 .problemStatBar {
   height: 6px;
   border-radius: 3px;
-  background: rgba(255,255,255,0.07);
+  background: var(--bg-progress);
   overflow: hidden;
 }
 
@@ -696,7 +829,6 @@
 
 .subTableHead {
   display: grid;
-  grid-template-columns: 140px repeat(3, 1fr) 120px;
   padding: 8px 0;
   border-bottom: 1px solid var(--border);
   font-size: 11px;
@@ -709,7 +841,6 @@
 
 .subTableRow {
   display: grid;
-  grid-template-columns: 140px repeat(3, 1fr) 120px;
   align-items: center;
   padding: 10px 0;
   border-bottom: 1px solid var(--border);
@@ -754,7 +885,7 @@
   flex: 1;
   height: 5px;
   border-radius: 3px;
-  background: rgba(255,255,255,0.07);
+  background: var(--bg-progress);
   overflow: hidden;
 }
 
@@ -804,7 +935,7 @@
 }
 
 .formInput:focus, .formTextarea:focus {
-  border-color: rgba(45,212,191,0.4);
+  border-color: var(--teal-border);
 }
 
 .formInput::placeholder, .formTextarea::placeholder { color: var(--text-muted); }
@@ -813,6 +944,10 @@
 
 input[type="date"].formInput {
   color-scheme: dark;
+}
+
+[data-theme="light"] input[type="date"].formInput {
+  color-scheme: light;
 }
 
 .problemSelect {
@@ -839,8 +974,8 @@ input[type="date"].formInput {
 .problemOption:hover { border-color: var(--border-hover); background: var(--bg-card); }
 
 .problemSelected {
-  border-color: rgba(45,212,191,0.4) !important;
-  background: rgba(45,212,191,0.06) !important;
+  border-color: var(--teal-border) !important;
+  background: var(--teal-06) !important;
 }
 
 .problemOptionCheck {
@@ -858,7 +993,7 @@ input[type="date"].formInput {
 
 .problemSelected .problemOptionCheck {
   border-color: var(--accent-teal);
-  background: rgba(45,212,191,0.15);
+  background: var(--teal-15);
 }
 
 .problemOptionInfo { display: flex; flex-direction: column; gap: 4px; }
@@ -878,7 +1013,7 @@ input[type="date"].formInput {
 .tagSmall {
   font-size: 11px;
   color: var(--text-muted);
-  background: rgba(255,255,255,0.04);
+  background: var(--bg-tag);
   border: 1px solid var(--border);
   padding: 2px 7px;
   border-radius: 4px;
@@ -908,8 +1043,8 @@ input[type="date"].formInput {
   padding: 9px 24px;
   border-radius: 9px;
   border: none;
-  background: linear-gradient(135deg, #2dd4bf, #a78bfa);
-  color: #080b12;
+  background: var(--gradient-accent);
+  color: #fff;
   font-size: 14px;
   font-weight: 700;
   cursor: pointer;

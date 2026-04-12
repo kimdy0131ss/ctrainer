@@ -115,7 +115,7 @@
   justify-content: center;
   font-size: 20px;
   font-weight: 700;
-  color: #080b12;
+  color: #fff;
 }
 
 .p2 .podiumAvatar, .p3 .podiumAvatar {
@@ -184,7 +184,7 @@
 .periodTab:hover { color: var(--text-primary); }
 
 .periodActive {
-  background: rgba(45,212,191,0.12) !important;
+  background: var(--teal-10) !important;
   color: var(--accent-teal) !important;
 }
 
@@ -193,6 +193,7 @@
   border: 1px solid var(--border);
   border-radius: 14px;
   overflow: hidden;
+  box-shadow: var(--card-shadow);
 }
 
 .tableHeader {
@@ -246,8 +247,8 @@
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #2dd4bf40, #a78bfa40);
-  border: 1px solid rgba(255,255,255,0.1);
+  background: var(--gradient-avatar);
+  border: 1px solid var(--avatar-border);
   display: flex;
   align-items: center;
   justify-content: center;
