@@ -148,25 +148,39 @@ export default function ProblemDetail() {
     setRunning(true)
     setVerdict(null)
     setTestResults(null)
-    const ex = problem.examples?.[0]
-    if (!ex) {
+
+    if (!problem.examples?.length) {
       setVerdict({ label: '예시가 없습니다.', color: '#fbbf24' })
       setRunning(false)
       return
     }
+
+    const results = []
     try {
-      const result = await runCode(currentCode, ex.input)
-      const r = parseResult(result, ex.output)
-      let label
-      if (r.passed) label = `예시 테스트 1 통과 ✓`
-      else label = `${r.label}: ${r.detail}`
-      setVerdict({ label, color: r.passed ? '#34d399' : r.label === '컴파일 오류' ? '#fb923c' : '#f87171' })
+      for (const ex of problem.examples) {
+        const result = await runCode(currentCode, ex.input)
+        const r = parseResult(result, ex.output)
+        results.push(r)
+        if (r.label === '컴파일 오류') break
+      }
+
+      setTestResults(results)
+      const passed = results.filter(r => r.passed).length
+      const allPassed = passed === results.length
+
+      setVerdict({
+        label: allPassed
+          ? `예시 테스트 통과! (${passed}/${results.length})`
+          : `예시 테스트 실패 (${passed}/${results.length})`,
+        color: allPassed ? '#34d399' : '#f87171',
+      })
     } catch (e) {
       setVerdict({
-        label: e.name === 'AbortError' ? '시간 초과 (20초). 무한루프나 서버 지연이 원인일 수 있습니다.' : `오류: ${e.message}`,
+        label: e.name === 'AbortError' ? '시간 초과 (20초)' : `오류: ${e.message}`,
         color: '#f87171',
       })
     }
+
     setRunning(false)
   }
 
@@ -379,7 +393,7 @@ export default function ProblemDetail() {
 
               <div className={styles.editorActions}>
                 <button className={styles.runBtn} onClick={handleRun} disabled={running}>
-                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><polygon points="3,1 13,7 3,13" fill="currentColor"/></svg>
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><polygon points="3,1 13,7 3,13" fill="currentColor" /></svg>
                   실행
                 </button>
                 <button className={styles.submitBtn} onClick={handleSubmit} disabled={running}>제출</button>
