@@ -79,6 +79,11 @@ export default function AdminPage({ isAdmin }) {
     setUsers(prev => prev.map(u => u.id === user.id ? { ...u, is_teacher: !u.is_teacher } : u))
   }
 
+  const toggleAdmin = async (user) => {
+    await supabase.from('profiles').update({ is_admin: !user.is_admin }).eq('id', user.id)
+    setUsers(prev => prev.map(u => u.id === user.id ? { ...u, is_admin: !u.is_admin } : u))
+  }
+
   const loadAll = async () => {
     setLoading(true)
     const { data } = await supabase.from('problems').select('*').order('id', { ascending: true })
@@ -209,6 +214,7 @@ export default function AdminPage({ isAdmin }) {
                   <th>유저네임</th>
                   <th>관리자</th>
                   <th>교사</th>
+                  <th>관리자 권한</th>
                   <th>교사 권한</th>
                 </tr>
               </thead>
@@ -224,6 +230,16 @@ export default function AdminPage({ isAdmin }) {
                     <td>
                       {user.is_teacher && (
                         <span style={{ fontSize:11, fontWeight:600, padding:'2px 7px', borderRadius:5, background:'rgba(45,212,191,0.15)', color:'var(--accent-teal)' }}>교사</span>
+                      )}
+                    </td>
+                    <td>
+                      {user.id !== currentUserId && (
+                        <button
+                          className={user.is_admin ? styles.deleteBtn : styles.editBtn}
+                          onClick={() => toggleAdmin(user)}
+                        >
+                          {user.is_admin ? '관리자 취소' : '관리자 부여'}
+                        </button>
                       )}
                     </td>
                     <td>

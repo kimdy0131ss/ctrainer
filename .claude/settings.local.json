@@ -4,7 +4,25 @@
       "Bash(npm run:*)",
       "Bash(curl -s http://localhost:5173/)",
       "Bash(curl -s http://localhost:5173/src/pages/Visualizer.jsx)",
-      "Bash(curl -s http://localhost:5173/src/pages/Teacher.jsx)"
+      "Bash(curl -s http://localhost:5173/src/pages/Teacher.jsx)",
+      "Bash(npm install:*)",
+      "Bash(npm list:*)",
+      "Bash(cd:*)",
+      "Bash(npx react-scripts:*)",
+      "Bash(node_modules/.bin/react-scripts build:*)",
+      "Bash(node --input-type=module --eval ':*)",
+      "Bash(node_modules/.bin/react-scripts start:*)",
+      "Bash(curl -s http://localhost:3000)",
+      "Bash(ls node_modules/.bin/react-scripts*)",
+      "Bash(python -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\('scripts:', json.dumps\\(d.get\\('scripts',{}\\), indent=2\\)\\); print\\('deps:', list\\(d.get\\('dependencies',{}\\).keys\\(\\)\\)[:15]\\)\")",
+      "Bash(node_modules/.bin/vite build:*)",
+      "Bash(git -C \"C:/Users/User/OneDrive/Desktop/ctrainer/my-react-app\" config user.name \"kimdy0131ss\")",
+      "Bash(git -C \"C:/Users/User/OneDrive/Desktop/ctrainer/my-react-app\" config user.email \"kimdy0131ss@gmail.com\")",
+      "Bash(git -C \"C:/Users/User/OneDrive/Desktop/ctrainer/my-react-app\" config user.name)",
+      "Bash(git -C \"C:/Users/User/OneDrive/Desktop/ctrainer/my-react-app\" config user.email)",
+      "Bash(git:*)",
+      "Bash(gh repo:*)",
+      "Bash(curl:*)"
     ]
   }
 }

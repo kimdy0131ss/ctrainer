@@ -26,11 +26,15 @@
   gap: 12px;
   padding: 32px;
   border-radius: 12px;
-  background: var(--bg-secondary);
+  background: #161b22;
   color: var(--text-primary);
   width: 320px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.3);
   border: 1px solid var(--border);
+}
+
+:global([data-theme="light"]) .box {
+  background: var(--bg-secondary);
 }
 
 .title {

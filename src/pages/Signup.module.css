@@ -24,10 +24,14 @@
   width: 360px;
   padding: 24px;
   border-radius: 16px;
-  background: var(--bg-secondary);
+  background: #161b22;
   box-shadow: 0 10px 30px rgba(0,0,0,0.2);
   border: 1px solid var(--border);
   color: var(--text-primary);
+}
+
+:global([data-theme="light"]) .card {
+  background: var(--bg-secondary);
 }
 
 .title {

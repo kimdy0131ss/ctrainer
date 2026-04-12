@@ -3,18 +3,15 @@ import { useNavigate, Link } from 'react-router-dom'
 import { supabase } from '../supabaseClient'
 import styles from './Login.module.css'
 
-const ADMIN_CODE = '5178'
-
 export default function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [secretCode, setSecretCode] = useState('')
   const navigate = useNavigate()
 
   const handleLogin = async (e) => {
     e.preventDefault()
 
-    const { data, error } = await supabase.auth.signInWithPassword({
+    const { error } = await supabase.auth.signInWithPassword({
       email,
       password,
     })
@@ -22,13 +19,6 @@ export default function Login() {
     if (error) {
       alert(error.message)
       return
-    }
-
-    if (secretCode === ADMIN_CODE && data?.user) {
-      await supabase
-        .from('profiles')
-        .update({ is_admin: true })
-        .eq('id', data.user.id)
     }
 
     navigate('/')
@@ -52,14 +42,6 @@ export default function Login() {
           placeholder="비밀번호"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className={styles.input}
-        />
-
-        <input
-          type="password"
-          placeholder="비밀코드 (선택사항)"
-          value={secretCode}
-          onChange={(e) => setSecretCode(e.target.value)}
           className={styles.input}
         />
 

@@ -3,13 +3,10 @@ import { supabase } from '../supabaseClient'
 import { useNavigate } from 'react-router-dom'
 import styles from './Signup.module.css'
 
-const ADMIN_CODE = '5178'
-
 export default function Signup() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [username, setUsername] = useState('')
-  const [secretCode, setSecretCode] = useState('')
   const [error, setError] = useState(null)
 
   const navigate = useNavigate()
@@ -17,8 +14,6 @@ export default function Signup() {
   const handleSignup = async (e) => {
     e.preventDefault()
     setError(null)
-
-    const isAdmin = secretCode === ADMIN_CODE
 
     const { data, error: signUpError } = await supabase.auth.signUp({
       email,
@@ -48,7 +43,7 @@ export default function Signup() {
           username: username || email.split('@')[0],
           solved_count: 0,
           rating: 0,
-          is_admin: isAdmin,
+          is_admin: false,
         },
       ])
 
@@ -86,14 +81,6 @@ export default function Signup() {
             placeholder="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-          />
-
-          <input
-            className={styles.input}
-            type="password"
-            placeholder="비밀코드 (선택사항)"
-            value={secretCode}
-            onChange={(e) => setSecretCode(e.target.value)}
           />
 
           <button className={styles.button} type="submit">
