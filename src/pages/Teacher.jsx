@@ -55,6 +55,7 @@ export default function Teacher() {
   const [searchStudent, setSearchStudent] = useState('')
 
   const [newAssignment, setNewAssignment] = useState({ title: '', description: '', dueDate: '', problems: [] })
+  const [problemSearch, setProblemSearch] = useState('')  // 문제 검색 추가
   const [submitting, setSubmitting] = useState(false)
 
   const [newClassName, setNewClassName] = useState('')
@@ -83,9 +84,7 @@ export default function Teacher() {
       ])
 
       setClassrooms(cls || [])
-      setAllProblems(
-        probs
-      )
+      setAllProblems(probs || [])
       if (cls?.length) setActiveClassroom(cls[0])
       setInitialized(true)
     }
@@ -207,6 +206,7 @@ export default function Teacher() {
     if (!error) {
       setTab('assignments')
       setNewAssignment({ title: '', description: '', dueDate: '', problems: [] })
+      setProblemSearch('')  // 검색 초기화
       loadClassroomData(activeClassroom.id)
     }
     setSubmitting(false)
@@ -231,6 +231,13 @@ export default function Teacher() {
   const filteredStudents = students.filter(s =>
     s.username.toLowerCase().includes(searchStudent.toLowerCase())
   )
+
+  // 문제 검색 필터링
+  const filteredProblems = allProblems.filter(p =>
+    p.title.toLowerCase().includes(problemSearch.toLowerCase()) ||
+    (p.tags || []).some(t => t.toLowerCase().includes(problemSearch.toLowerCase()))
+  )
+
   const activeAssignmentsCount = assignments.filter(a => assignmentStatus(a.due_date) === 'active').length
 
   return (
@@ -698,8 +705,19 @@ export default function Teacher() {
                       문제 선택 <span className={styles.required}>*</span>
                       <span className={styles.formHint}>{newAssignment.problems.length}개 선택됨</span>
                     </label>
+                    
+                    {/* 문제 검색 추가 */}
+                    <input 
+                      className={styles.formInput}
+                      type="text"
+                      placeholder="문제 제목 또는 태그로 검색..."
+                      value={problemSearch}
+                      onChange={e => setProblemSearch(e.target.value)}
+                      style={{ marginBottom: 12 }}
+                    />
+                    
                     <div className={styles.problemSelect}>
-                      {allProblems.map(p => {
+                      {filteredProblems.map(p => {
                         const selected = newAssignment.problems.includes(p.id)
                         return (
                           <div key={p.id}
