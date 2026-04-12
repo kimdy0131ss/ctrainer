@@ -2,23 +2,8 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
   <url>
-    <loc>https://너의도메인.com/</loc>
+    <loc>https://https://ctrainer.onrender.com/</loc>
     <priority>1.0</priority>
-  </url>
-
-  <url>
-    <loc>https://너의도메인.com/c-basics</loc>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://너의도메인.com/algorithms</loc>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://너의도메인.com/problems</loc>
-    <priority>0.9</priority>
   </url>
 
 </urlset>
