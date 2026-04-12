@@ -179,72 +179,92 @@ const CODE_SNIPPETS = {
   },
 }
 
-/* ── 정렬 코드 스니펫 (Python) ── */
+/* ── 정렬 코드 스니펫 (C) ── */
 const SORT_CODE = {
   bubble: [
-    { text: 'def bubble_sort(arr):' },
-    { text: '    n = len(arr)',                            phase: 'init' },
-    { text: '    for i in range(n - 1):',                 phase: 'loop' },
-    { text: '        for j in range(n - 1 - i):',         phase: 'loop' },
-    { text: '            if arr[j] > arr[j + 1]:',        phase: 'compare' },
-    { text: '                arr[j], arr[j+1] =',         phase: 'swap' },
-    { text: '                    arr[j+1], arr[j]',       phase: 'swap' },
+    { text: '#define MAX 100',                                    type: 'dim' },
+    { text: '' },
+    { text: 'void bubble_sort(int arr[], int n) {' },
+    { text: '    for (int i = 0; i < n - 1; i++) {',             phase: 'loop' },
+    { text: '        for (int j = 0; j < n - 1 - i; j++) {',    phase: 'loop' },
+    { text: '            if (arr[j] > arr[j + 1]) {',            phase: 'compare' },
+    { text: '                int tmp  = arr[j];',                 phase: 'swap' },
+    { text: '                arr[j]   = arr[j + 1];',            phase: 'swap' },
+    { text: '                arr[j+1] = tmp;',                   phase: 'swap' },
+    { text: '            }' },
+    { text: '        }' },
+    { text: '    }' },
+    { text: '}' },
   ],
   selection: [
-    { text: 'def selection_sort(arr):' },
-    { text: '    n = len(arr)',                            phase: 'init' },
-    { text: '    for i in range(n - 1):',                 phase: 'loop' },
-    { text: '        min_idx = i',                        phase: 'init' },
-    { text: '        for j in range(i + 1, n):',          phase: 'loop' },
-    { text: '            if arr[j] < arr[min_idx]:',      phase: 'compare' },
-    { text: '                min_idx = j',                phase: 'compare' },
-    { text: '        arr[i], arr[min_idx] =',             phase: 'swap' },
-    { text: '            arr[min_idx], arr[i]',           phase: 'swap' },
+    { text: '#define MAX 100',                                    type: 'dim' },
+    { text: '' },
+    { text: 'void selection_sort(int arr[], int n) {' },
+    { text: '    for (int i = 0; i < n - 1; i++) {',             phase: 'loop' },
+    { text: '        int min_idx = i;',                          phase: 'init' },
+    { text: '        for (int j = i + 1; j < n; j++) {',        phase: 'loop' },
+    { text: '            if (arr[j] < arr[min_idx])',            phase: 'compare' },
+    { text: '                min_idx = j;',                      phase: 'compare' },
+    { text: '        }' },
+    { text: '        int tmp       = arr[i];',                   phase: 'swap' },
+    { text: '        arr[i]        = arr[min_idx];',             phase: 'swap' },
+    { text: '        arr[min_idx]  = tmp;',                      phase: 'swap' },
+    { text: '    }' },
+    { text: '}' },
   ],
   insertion: [
-    { text: 'def insertion_sort(arr):' },
-    { text: '    for i in range(1, len(arr)):',           phase: 'loop' },
-    { text: '        key = arr[i]',                       phase: 'init' },
-    { text: '        j = i - 1',                         phase: 'init' },
-    { text: '        while j >= 0 and arr[j] > key:',    phase: 'compare' },
-    { text: '            arr[j + 1] = arr[j]',           phase: 'swap' },
-    { text: '            j -= 1',                        phase: 'swap' },
-    { text: '        arr[j + 1] = key',                  phase: 'swap' },
+    { text: '#define MAX 100',                                    type: 'dim' },
+    { text: '' },
+    { text: 'void insertion_sort(int arr[], int n) {' },
+    { text: '    for (int i = 1; i < n; i++) {',                 phase: 'loop' },
+    { text: '        int key = arr[i];',                         phase: 'init' },
+    { text: '        int j   = i - 1;',                         phase: 'init' },
+    { text: '        while (j >= 0 && arr[j] > key) {',         phase: 'compare' },
+    { text: '            arr[j + 1] = arr[j];',                  phase: 'swap' },
+    { text: '            j--;',                                   phase: 'swap' },
+    { text: '        }' },
+    { text: '        arr[j + 1] = key;',                         phase: 'swap' },
+    { text: '    }' },
+    { text: '}' },
   ],
   merge: [
-    { text: 'def merge_sort(arr):' },
-    { text: '    if len(arr) <= 1: return arr',           phase: 'init' },
-    { text: '    mid = len(arr) // 2',                   phase: 'init' },
-    { text: '    L = merge_sort(arr[:mid])',              phase: 'loop' },
-    { text: '    R = merge_sort(arr[mid:])',              phase: 'loop' },
-    { text: '    return merge(L, R)',                     phase: 'compare' },
+    { text: '#define MAX 100',                                    type: 'dim' },
     { text: '' },
-    { text: 'def merge(L, R):' },
-    { text: '    result, i, j = [], 0, 0' },
-    { text: '    while i < len(L) and j < len(R):',      phase: 'compare' },
-    { text: '        if L[i] <= R[j]:',                  phase: 'compare' },
-    { text: '            result.append(L[i]); i += 1',   phase: 'swap' },
-    { text: '        else:' },
-    { text: '            result.append(R[j]); j += 1',   phase: 'swap' },
-    { text: '    return result + L[i:] + R[j:]',         phase: 'swap' },
+    { text: 'void merge(int a[], int l, int m, int r) {',        type: 'dim' },
+    { text: '    int L[MAX], R[MAX];',                           type: 'dim' },
+    { text: '    int n1=m-l+1, n2=r-m, i=0, j=0, k=l;',       type: 'dim' },
+    { text: '    for(int x=0;x<n1;x++) L[x]=a[l+x];',          type: 'dim' },
+    { text: '    for(int x=0;x<n2;x++) R[x]=a[m+1+x];',        type: 'dim' },
+    { text: '    while(i<n1 && j<n2)',                           type: 'dim' },
+    { text: '        a[k++]=(L[i]<=R[j])?L[i++]:R[j++];',      type: 'dim' },
+    { text: '    while(i<n1) a[k++]=L[i++];',                   type: 'dim' },
+    { text: '    while(j<n2) a[k++]=R[j++]; }',                 type: 'dim' },
+    { text: '' },
+    { text: 'void merge_sort(int arr[], int l, int r) {' },
+    { text: '    if (l >= r) return;',                           phase: 'init' },
+    { text: '    int m = (l + r) / 2;',                         phase: 'init' },
+    { text: '    merge_sort(arr, l, m);',                        phase: 'loop' },
+    { text: '    merge_sort(arr, m + 1, r);',                    phase: 'loop' },
+    { text: '    merge(arr, l, m, r);',                          phase: 'compare' },
+    { text: '}' },
   ],
   quick: [
-    { text: 'def quick_sort(arr, low=0, high=None):' },
-    { text: '    if high is None: high = len(arr)-1',    phase: 'init' },
-    { text: '    if low < high:',                        phase: 'loop' },
-    { text: '        p = partition(arr, low, high)',     phase: 'init' },
-    { text: '        quick_sort(arr, low, p - 1)',       phase: 'loop' },
-    { text: '        quick_sort(arr, p + 1, high)',      phase: 'loop' },
+    { text: '#define MAX 100',                                    type: 'dim' },
     { text: '' },
-    { text: 'def partition(arr, low, high):' },
-    { text: '    pivot = arr[high]',                     phase: 'init' },
-    { text: '    i = low - 1',                          phase: 'init' },
-    { text: '    for j in range(low, high):',            phase: 'loop' },
-    { text: '        if arr[j] <= pivot:',               phase: 'compare' },
-    { text: '            i += 1',                       phase: 'compare' },
-    { text: '            arr[i], arr[j] = arr[j], arr[i]', phase: 'swap' },
-    { text: '    arr[i+1], arr[high] = arr[high], arr[i+1]', phase: 'swap' },
-    { text: '    return i + 1',                         phase: 'swap' },
+    { text: 'int partition(int arr[], int low, int high) {',     type: 'dim' },
+    { text: '    int pivot = arr[high], i = low - 1;',          type: 'dim' },
+    { text: '    for (int j = low; j < high; j++) {',            type: 'dim' },
+    { text: '        if (arr[j] <= pivot) {',                    type: 'dim' },
+    { text: '            int t=arr[++i]; arr[i]=arr[j]; arr[j]=t; }}', type: 'dim' },
+    { text: '    int t=arr[i+1]; arr[i+1]=arr[high]; arr[high]=t;', type: 'dim' },
+    { text: '    return i + 1; }',                               type: 'dim' },
+    { text: '' },
+    { text: 'void quick_sort(int arr[], int low, int high) {' },
+    { text: '    if (low >= high) return;',                      phase: 'init' },
+    { text: '    int p = partition(arr, low, high);',            phase: 'init' },
+    { text: '    quick_sort(arr, low, p - 1);',                  phase: 'loop' },
+    { text: '    quick_sort(arr, p + 1, high);',                 phase: 'loop' },
+    { text: '}' },
   ],
 }
 
@@ -477,8 +497,51 @@ const TREE_ADJ = (() => {
   return adj
 })()
 
-function initTreeStates(start, end) {
-  return TREE_NODES.map(n => n.id === start ? 'start' : n.id === end ? 'end' : 'unvisited')
+/* ── 그래프 크기 프리셋 ── */
+const buildAdj = (nodes, edges) => {
+  const adj = Array.from({ length: nodes.length }, () => [])
+  for (const { u, v, w } of edges) { adj[u].push({ to: v, w }); adj[v].push({ to: u, w }) }
+  return adj
+}
+
+const SMALL_NODES = [
+  { id: 0, x: 380, y: 50,  label: 'A' },
+  { id: 1, x: 190, y: 165, label: 'B' },
+  { id: 2, x: 570, y: 165, label: 'C' },
+  { id: 3, x: 90,  y: 270, label: 'D' },
+  { id: 4, x: 290, y: 270, label: 'E' },
+  { id: 5, x: 470, y: 270, label: 'F' },
+  { id: 6, x: 670, y: 270, label: 'G' },
+]
+const SMALL_EDGES = [
+  { u: 0, v: 1, w: 4 }, { u: 0, v: 2, w: 5 },
+  { u: 1, v: 3, w: 3 }, { u: 1, v: 4, w: 6 },
+  { u: 2, v: 5, w: 2 }, { u: 2, v: 6, w: 7 },
+]
+
+const LARGE_NODES = [
+  ...TREE_NODES,
+  { id: 15, x: 28,  y: 460, label: 'P' },
+  { id: 16, x: 108, y: 460, label: 'Q' },
+  { id: 17, x: 338, y: 460, label: 'R' },
+  { id: 18, x: 600, y: 460, label: 'S' },
+]
+const LARGE_EDGES = [
+  ...TREE_EDGES,
+  { u: 9,  v: 15, w: 5 },
+  { u: 10, v: 16, w: 3 },
+  { u: 12, v: 17, w: 7 },
+  { u: 14, v: 18, w: 4 },
+]
+
+const GRAPH_PRESETS = {
+  small:  { nodes: SMALL_NODES, edges: SMALL_EDGES, adj: buildAdj(SMALL_NODES, SMALL_EDGES), defaultEnd: 6,  viewBox: '0 0 760 310' },
+  medium: { nodes: TREE_NODES,  edges: TREE_EDGES,  adj: TREE_ADJ,                          defaultEnd: 14, viewBox: '0 0 760 400' },
+  large:  { nodes: LARGE_NODES, edges: LARGE_EDGES, adj: buildAdj(LARGE_NODES, LARGE_EDGES), defaultEnd: 18, viewBox: '0 0 760 495' },
+}
+
+function initTreeStates(nodes, start, end) {
+  return nodes.map(n => n.id === start ? 'start' : n.id === end ? 'end' : 'unvisited')
 }
 
 function getNodeStyle(st, color) {
@@ -499,26 +562,26 @@ function buildTreePath(prev, end) {
   return path.length > 1 ? path : []
 }
 
-function treeBfsSteps(start, end) {
-  const visited = new Array(TN).fill(false)
-  const prev = new Array(TN).fill(-1)
+function treeBfsSteps(nodes, adj, n, start, end) {
+  const visited = new Array(n).fill(false)
+  const prev = new Array(n).fill(-1)
   const queue = [start]; visited[start] = true
   const steps = []
-  const states = TREE_NODES.map(n => n.id === start ? 'start' : n.id === end ? 'end' : 'unvisited')
-  const qSnap = (newId = -1) => queue.map(n => ({ id: n, label: TREE_NODES[n].label, isNew: n === newId }))
+  const states = nodes.map(nd => nd.id === start ? 'start' : nd.id === end ? 'end' : 'unvisited')
+  const qSnap = (newId = -1) => queue.map(nd => ({ id: nd, label: nodes[nd].label, isNew: nd === newId }))
 
   while (queue.length) {
     const u = queue.shift()
-    for (let i = 0; i < TN; i++) if (states[i] === 'current') states[i] = 'visited'
+    for (let i = 0; i < n; i++) if (states[i] === 'current') states[i] = 'visited'
     if (states[u] !== 'start' && states[u] !== 'end') states[u] = 'current'
     steps.push({
       type: 'dequeue', current: u, newNode: -1,
       nodeStates: [...states], queueSnap: qSnap(),
       phase: 'dequeue', found: u === end,
-      msg: `큐에서 ${TREE_NODES[u].label} 꺼냄 → 방문`,
+      msg: `큐에서 ${nodes[u].label} 꺼냄 → 방문`,
     })
     if (u === end) break
-    for (const { to } of TREE_ADJ[u]) {
+    for (const { to } of adj[u]) {
       if (!visited[to]) {
         visited[to] = true; prev[to] = u; queue.push(to)
         if (states[to] !== 'start' && states[to] !== 'end') states[to] = 'frontier'
@@ -526,7 +589,7 @@ function treeBfsSteps(start, end) {
           type: 'enqueue', current: u, newNode: to,
           nodeStates: [...states], queueSnap: qSnap(to),
           phase: 'enqueue', found: false,
-          msg: `${TREE_NODES[u].label} → ${TREE_NODES[to].label} 발견, 큐에 추가`,
+          msg: `${nodes[u].label} → ${nodes[to].label} 발견, 큐에 추가`,
         })
       }
     }
@@ -534,26 +597,26 @@ function treeBfsSteps(start, end) {
   return { steps, prev }
 }
 
-function treeDfsSteps(start, end) {
-  const visited = new Array(TN).fill(false)
-  const prev = new Array(TN).fill(-1)
+function treeDfsSteps(nodes, adj, n, start, end) {
+  const visited = new Array(n).fill(false)
+  const prev = new Array(n).fill(-1)
   const stack = [start]; visited[start] = true
   const steps = []
-  const states = TREE_NODES.map(n => n.id === start ? 'start' : n.id === end ? 'end' : 'unvisited')
-  const qSnap = (newId = -1) => [...stack].reverse().map(n => ({ id: n, label: TREE_NODES[n].label, isNew: n === newId }))
+  const states = nodes.map(nd => nd.id === start ? 'start' : nd.id === end ? 'end' : 'unvisited')
+  const qSnap = (newId = -1) => [...stack].reverse().map(nd => ({ id: nd, label: nodes[nd].label, isNew: nd === newId }))
 
   while (stack.length) {
     const u = stack.pop()
-    for (let i = 0; i < TN; i++) if (states[i] === 'current') states[i] = 'visited'
+    for (let i = 0; i < n; i++) if (states[i] === 'current') states[i] = 'visited'
     if (states[u] !== 'start' && states[u] !== 'end') states[u] = 'current'
     steps.push({
       type: 'dequeue', current: u, newNode: -1,
       nodeStates: [...states], queueSnap: qSnap(),
       phase: 'dequeue', found: u === end,
-      msg: `스택에서 ${TREE_NODES[u].label} 꺼냄 → 방문`,
+      msg: `스택에서 ${nodes[u].label} 꺼냄 → 방문`,
     })
     if (u === end) break
-    for (const { to } of TREE_ADJ[u]) {
+    for (const { to } of adj[u]) {
       if (!visited[to]) {
         visited[to] = true; prev[to] = u; stack.push(to)
         if (states[to] !== 'start' && states[to] !== 'end') states[to] = 'frontier'
@@ -561,7 +624,7 @@ function treeDfsSteps(start, end) {
           type: 'enqueue', current: u, newNode: to,
           nodeStates: [...states], queueSnap: qSnap(to),
           phase: 'enqueue', found: false,
-          msg: `${TREE_NODES[u].label} → ${TREE_NODES[to].label} 발견, 스택에 추가`,
+          msg: `${nodes[u].label} → ${nodes[to].label} 발견, 스택에 추가`,
         })
       }
     }
@@ -569,33 +632,33 @@ function treeDfsSteps(start, end) {
   return { steps, prev }
 }
 
-function treeDijkstraSteps(start, end) {
-  const dist = new Array(TN).fill(Infinity)
-  const prev = new Array(TN).fill(-1)
-  const settled = new Array(TN).fill(false)
+function treeDijkstraSteps(nodes, adj, n, start, end) {
+  const dist = new Array(n).fill(Infinity)
+  const prev = new Array(n).fill(-1)
+  const settled = new Array(n).fill(false)
   dist[start] = 0
   const pq = [{ node: start, cost: 0 }]
   const steps = []
-  const states = TREE_NODES.map(n => n.id === start ? 'start' : n.id === end ? 'end' : 'unvisited')
+  const states = nodes.map(nd => nd.id === start ? 'start' : nd.id === end ? 'end' : 'unvisited')
   const qSnap = (newId = -1) => [...pq]
     .sort((a, b) => a.cost - b.cost)
-    .map(({ node, cost: c }) => ({ id: node, label: TREE_NODES[node].label, cost: c, isNew: node === newId }))
+    .map(({ node, cost: c }) => ({ id: node, label: nodes[node].label, cost: c, isNew: node === newId }))
 
   while (pq.length) {
     pq.sort((a, b) => a.cost - b.cost)
     const { node: u, cost } = pq.shift()
     if (settled[u]) continue
     settled[u] = true
-    for (let i = 0; i < TN; i++) if (states[i] === 'current') states[i] = 'visited'
+    for (let i = 0; i < n; i++) if (states[i] === 'current') states[i] = 'visited'
     if (states[u] !== 'start' && states[u] !== 'end') states[u] = 'current'
     steps.push({
       type: 'dequeue', current: u, newNode: -1,
       nodeStates: [...states], queueSnap: qSnap(),
       dist: [...dist], phase: 'dequeue', found: u === end,
-      msg: `${TREE_NODES[u].label} 확정 (누적 비용: ${cost})`,
+      msg: `${nodes[u].label} 확정 (누적 비용: ${cost})`,
     })
     if (u === end) break
-    for (const { to, w } of TREE_ADJ[u]) {
+    for (const { to, w } of adj[u]) {
       const nc = cost + w
       if (nc < dist[to]) {
         dist[to] = nc; prev[to] = u; pq.push({ node: to, cost: nc })
@@ -604,7 +667,7 @@ function treeDijkstraSteps(start, end) {
           type: 'enqueue', current: u, newNode: to,
           nodeStates: [...states], queueSnap: qSnap(to),
           dist: [...dist], phase: 'enqueue', found: false,
-          msg: `${TREE_NODES[to].label} 비용 갱신 → ${nc} (${TREE_NODES[u].label} + ${w})`,
+          msg: `${nodes[to].label} 비용 갱신 → ${nc} (${nodes[u].label} + ${w})`,
         })
       }
     }
@@ -738,6 +801,95 @@ function getBarColor(idx, ds, accentColor) {
   return { fill: 'var(--bg-card)', stroke: 'var(--border)' }
 }
 
+/* ── C 코드 스니펫 ── */
+const C_CODE = {
+  bfs: [
+    { text: '#include <stdio.h>',                        type: 'dim' },
+    { text: '#include <stdbool.h>',                      type: 'dim' },
+    { text: '#define MAX 100',                           type: 'dim' },
+    { text: '' },
+    { text: 'void bfs(int g[MAX][MAX], int n, int s, int e) {' },
+    { text: '    int  q[MAX], front = 0, rear = 0;',     phase: 'init' },
+    { text: '    bool vis[MAX] = {false};',              phase: 'init' },
+    { text: '    int  prev[MAX];',                       phase: 'init' },
+    { text: '    for (int i=0;i<n;i++) prev[i] = -1;',  phase: 'init' },
+    { text: '' },
+    { text: '    q[rear++] = s;  vis[s] = true;',        phase: 'init' },
+    { text: '' },
+    { text: '    while (front < rear) {',                phase: 'loop' },
+    { text: '        int u = q[front++];',               phase: 'dequeue' },
+    { text: '        if (u == e) return;',               phase: 'check' },
+    { text: '        for (int i = 0; i < n; i++) {',    phase: 'neighbor' },
+    { text: '            if (g[u][i] && !vis[i]) {',    phase: 'filter' },
+    { text: '                vis[i]  = true;',           phase: 'enqueue' },
+    { text: '                prev[i] = u;',              phase: 'enqueue' },
+    { text: '                q[rear++] = i;',            phase: 'enqueue' },
+    { text: '            }' },
+    { text: '        }' },
+    { text: '    }' },
+    { text: '}', phase: 'done' },
+  ],
+  dfs: [
+    { text: '#include <stdio.h>',                        type: 'dim' },
+    { text: '#include <stdbool.h>',                      type: 'dim' },
+    { text: '#define MAX 100',                           type: 'dim' },
+    { text: '' },
+    { text: 'void dfs(int g[MAX][MAX], int n, int s, int e) {' },
+    { text: '    int  stk[MAX], top = -1;',              phase: 'init' },
+    { text: '    bool vis[MAX] = {false};',              phase: 'init' },
+    { text: '    int  prev[MAX];',                       phase: 'init' },
+    { text: '    for (int i=0;i<n;i++) prev[i] = -1;',  phase: 'init' },
+    { text: '' },
+    { text: '    stk[++top] = s;  vis[s] = true;',       phase: 'init' },
+    { text: '' },
+    { text: '    while (top >= 0) {',                    phase: 'loop' },
+    { text: '        int u = stk[top--];',               phase: 'dequeue' },
+    { text: '        if (u == e) return;',               phase: 'check' },
+    { text: '        for (int i = 0; i < n; i++) {',    phase: 'neighbor' },
+    { text: '            if (g[u][i] && !vis[i]) {',    phase: 'filter' },
+    { text: '                vis[i]  = true;',           phase: 'enqueue' },
+    { text: '                prev[i] = u;',              phase: 'enqueue' },
+    { text: '                stk[++top] = i;',           phase: 'enqueue' },
+    { text: '            }' },
+    { text: '        }' },
+    { text: '    }' },
+    { text: '}', phase: 'done' },
+  ],
+  dijkstra: [
+    { text: '#include <limits.h>',                       type: 'dim' },
+    { text: '#include <stdbool.h>',                      type: 'dim' },
+    { text: '#define MAX 100',                           type: 'dim' },
+    { text: '#define INF INT_MAX',                       type: 'dim' },
+    { text: '' },
+    { text: 'int min_v(int d[], bool s[], int n) {',    type: 'dim' },
+    { text: '    int u = -1;',                          type: 'dim' },
+    { text: '    for (int i=0;i<n;i++)',                type: 'dim' },
+    { text: '        if (!s[i]&&(u<0||d[i]<d[u])) u=i;', type: 'dim' },
+    { text: '    return u; }',                          type: 'dim' },
+    { text: '' },
+    { text: 'void dijkstra(int g[MAX][MAX], int n, int s, int e) {' },
+    { text: '    int  dist[MAX], prev[MAX];',            phase: 'init' },
+    { text: '    bool settled[MAX] = {false};',          phase: 'init' },
+    { text: '    for(int i=0;i<n;i++){dist[i]=INF;prev[i]=-1;}', phase: 'init' },
+    { text: '    dist[s] = 0;',                          phase: 'init' },
+    { text: '' },
+    { text: '    for (int iter = 0; iter < n; iter++) {',   phase: 'loop' },
+    { text: '        int u = min_v(dist, settled, n);',     phase: 'dequeue' },
+    { text: '        if (u < 0) break;',                    phase: 'dequeue' },
+    { text: '        settled[u] = true;',                   phase: 'dequeue' },
+    { text: '        if (u == e) return;',                  phase: 'check' },
+    { text: '        for (int v = 0; v < n; v++) {',       phase: 'neighbor' },
+    { text: '            if (!g[u][v] || settled[v]) continue;', phase: 'filter' },
+    { text: '            if (dist[u]+g[u][v] < dist[v]) {',     phase: 'filter' },
+    { text: '                dist[v] = dist[u] + g[u][v];',     phase: 'enqueue' },
+    { text: '                prev[v] = u;',                     phase: 'enqueue' },
+    { text: '            }' },
+    { text: '        }' },
+    { text: '    }' },
+    { text: '}', phase: 'done' },
+  ],
+}
+
 const EMPTY_ALGO_FORM = {
   abbr: '', name: '', eng: '', color: '#2dd4bf', tagline: '',
   summary: '', structure: '', structureDesc: '',
@@ -750,17 +902,21 @@ export default function Visualizer({ isAdmin }) {
   const [pageType, setPageType] = useState('graph')  // 'graph' | 'sort'
   const [speed, setSpeed]       = useState('normal')
   const [running, setRunning]   = useState(false)
+  const [paused, setPaused]     = useState(false)
   const [done, setDone]         = useState(false)
   const [codePhase, setCodePhase] = useState(null)
   const [showCode, setShowCode] = useState(true)
-  const animRef = useRef(null)
+  const animRef     = useRef(null)
+  const pausedRef   = useRef(false)
+  const resumeFnRef = useRef(null)
 
   /* ── 그래프 상태 ── */
+  const [graphSize, setGraphSize]   = useState('medium')
   const [algo, setAlgo]             = useState('bfs')
   const [startNode, setStartNode]   = useState(0)
   const [endNode, setEndNode]       = useState(14)
   const [selectMode, setSelectMode] = useState(null)
-  const [nodeStates, setNodeStates] = useState(() => initTreeStates(0, 14))
+  const [nodeStates, setNodeStates] = useState(() => initTreeStates(GRAPH_PRESETS.medium.nodes, 0, 14))
   const [pathEdges, setPathEdges]   = useState(new Set())
   const [stats, setStats]           = useState(null)
   const [nodeDists, setNodeDists]   = useState(null)
@@ -771,39 +927,64 @@ export default function Visualizer({ isAdmin }) {
   const [showAddForm, setShowAddForm]       = useState(false)
   const [algoForm, setAlgoForm]             = useState(EMPTY_ALGO_FORM)
   const [editAlgoKey, setEditAlgoKey]       = useState(null)
-  const statesRef = useRef(initTreeStates(0, 14))
+  const statesRef = useRef(initTreeStates(GRAPH_PRESETS.medium.nodes, 0, 14))
 
   /* ── 정렬 상태 ── */
+  const [arraySize, setArraySize]           = useState(16)
   const [sortAlgo, setSortAlgo]             = useState('bubble')
-  const [sortArray, setSortArray]           = useState(() => genArray())
+  const [sortArray, setSortArray]           = useState(() => genArray(16))
   const [sortDisplayState, setSortDisplayState] = useState(null)
   const [sortStats, setSortStats]           = useState(null)
 
+  /* ── 현재 그래프 프리셋 ── */
+  const curGraph = GRAPH_PRESETS[graphSize]
+  const curNodes = curGraph.nodes
+  const curEdges = curGraph.edges
+  const curAdj   = curGraph.adj
+  const curN     = curNodes.length
+
   /* ── 그래프 함수 ── */
-  const resetViz = (sNode, eNode) => {
+  const resetViz = (sNode, eNode, nodes = curNodes) => {
     const s = sNode ?? startNode, e = eNode ?? endNode
     if (animRef.current) clearTimeout(animRef.current)
-    setRunning(false); setDone(false); setStats(null); setCodePhase(null)
+    pausedRef.current = false; resumeFnRef.current = null
+    setRunning(false); setPaused(false); setDone(false); setStats(null); setCodePhase(null)
     setPathEdges(new Set()); setNodeDists(null); setCurrentQueue([]); setStepMsg(null)
-    const ns = initTreeStates(s, e)
+    const ns = initTreeStates(nodes, s, e)
+    statesRef.current = ns; setNodeStates([...ns])
+  }
+
+  const handleGraphSizeChange = (size) => {
+    if (running) return
+    const preset = GRAPH_PRESETS[size]
+    const newEnd = preset.defaultEnd
+    setGraphSize(size)
+    setStartNode(0)
+    setEndNode(newEnd)
+    if (animRef.current) clearTimeout(animRef.current)
+    pausedRef.current = false; resumeFnRef.current = null
+    setRunning(false); setPaused(false); setDone(false); setStats(null); setCodePhase(null)
+    setPathEdges(new Set()); setNodeDists(null); setCurrentQueue([]); setStepMsg(null)
+    const ns = initTreeStates(preset.nodes, 0, newEnd)
     statesRef.current = ns; setNodeStates([...ns])
   }
 
   const runGraph = () => {
     if (animRef.current) clearTimeout(animRef.current)
     setSelectMode(null)
-    const ns = initTreeStates(startNode, endNode)
+    const ns = initTreeStates(curNodes, startNode, endNode)
     statesRef.current = ns; setNodeStates([...ns])
     setPathEdges(new Set()); setRunning(true); setDone(false)
     setStats(null); setCodePhase('init'); setNodeDists(null); setCurrentQueue([]); setStepMsg(null)
 
     const stepFn = GRAPH_FN[algo] ?? GRAPH_FN[concept?.vizType]
     if (!stepFn) { setRunning(false); return }
-    const { steps, prev } = stepFn(startNode, endNode)
+    const { steps, prev } = stepFn(curNodes, curAdj, curN, startNode, endNode)
     const delay = SPEED_MAP[speed]
     let idx = 0
 
     const tick = () => {
+      if (pausedRef.current) { resumeFnRef.current = tick; return }
       if (idx >= steps.length) {
         setRunning(false); setDone(true); setCodePhase('done')
         const visitedCount = steps.filter(s => s.type === 'dequeue').length
@@ -841,6 +1022,17 @@ export default function Visualizer({ isAdmin }) {
     animRef.current = setTimeout(tick, delay)
   }
 
+  const pauseAnim = () => {
+    pausedRef.current = true; setPaused(true)
+  }
+
+  const resumeAnim = () => {
+    pausedRef.current = false; setPaused(false)
+    const fn = resumeFnRef.current
+    resumeFnRef.current = null
+    if (fn) fn()
+  }
+
   const handleNodeClick = (id) => {
     if (running || !selectMode) return
     const blocked = selectMode === 'start' ? endNode : startNode
@@ -853,9 +1045,16 @@ export default function Visualizer({ isAdmin }) {
   /* ── 정렬 함수 ── */
   const resetSort = (newArr) => {
     if (animRef.current) clearTimeout(animRef.current)
-    setRunning(false); setDone(false); setSortStats(null)
+    pausedRef.current = false; resumeFnRef.current = null
+    setRunning(false); setPaused(false); setDone(false); setSortStats(null)
     setCodePhase(null); setSortDisplayState(null)
     if (newArr) setSortArray(newArr)
+  }
+
+  const handleArraySizeChange = (n) => {
+    if (running) return
+    setArraySize(n)
+    resetSort(genArray(n))
   }
 
   const runSort = () => {
@@ -869,6 +1068,7 @@ export default function Visualizer({ isAdmin }) {
     let comparisons = 0, swaps = 0
 
     const tick = () => {
+      if (pausedRef.current) { resumeFnRef.current = tick; return }
       if (idx >= steps.length) {
         setRunning(false); setDone(true)
         setSortStats({ comparisons, swaps }); return
@@ -1078,16 +1278,12 @@ export default function Visualizer({ isAdmin }) {
                   )}
                 </div>
                 {showCode && (
-                  <div className={styles.langTabs}>
-                    {[{id:'python',label:'Python'},{id:'cpp',label:'C++'},{id:'js',label:'JavaScript'}].map(l=>(
-                      <button key={l.id} className={`${styles.langTab} ${codeLang===l.id?styles.langActive:''}`} onClick={()=>setCodeLang(l.id)}>{l.label}</button>
-                    ))}
-                  </div>
+                  <span className={styles.langTab} style={{cursor:'default',background:'none',color:'var(--text-muted)',fontSize:12,fontFamily:'var(--font-mono)'}}>C</span>
                 )}
               </div>
               {showCode && (
                 <div className={styles.codeBlock}><div className={styles.codeBlockInner}>
-                  {(CODE_SNIPPETS[algo]?.[codeLang]??[]).map((line,i)=>{
+                  {(C_CODE[algo]??[]).map((line,i)=>{
                     const isActive = codePhase && line.phase===codePhase
                     return (
                       <div key={i} className={`${styles.codeLn} ${isActive?styles.codeLnActive:''} ${line.type==='dim'?styles.codeLnDim:''}`}>
@@ -1127,6 +1323,14 @@ export default function Visualizer({ isAdmin }) {
               <>
                 <div className={styles.controls}>
                   <div className={styles.controlGroup}>
+                    <span className={styles.controlLabel}>그래프 크기</span>
+                    <div className={styles.btnGroup}>
+                      {[{id:'small',label:'작게'},{id:'medium',label:'보통'},{id:'large',label:'크게'}].map(s=>(
+                        <button key={s.id} className={`${styles.groupBtn} ${graphSize===s.id?styles.groupActive:''}`} onClick={()=>handleGraphSizeChange(s.id)} disabled={running}>{s.label}</button>
+                      ))}
+                    </div>
+                  </div>
+                  <div className={styles.controlGroup}>
                     <span className={styles.controlLabel}>속도</span>
                     <div className={styles.btnGroup}>
                       {[{id:'slow',label:'느리게'},{id:'normal',label:'보통'},{id:'fast',label:'빠르게'}].map(s=>(
@@ -1139,12 +1343,24 @@ export default function Visualizer({ isAdmin }) {
                     <div className={styles.btnGroup}>
                       <button className={`${styles.mazeBtn} ${selectMode==='start'?styles.groupActive:''}`} onClick={()=>!running&&setSelectMode(m=>m==='start'?null:'start')} disabled={running}>🟢 시작점</button>
                       <button className={`${styles.mazeBtn} ${selectMode==='end'?styles.groupActive:''}`} onClick={()=>!running&&setSelectMode(m=>m==='end'?null:'end')} disabled={running}>🔴 도착점</button>
-                      <button className={styles.clearBtn} onClick={()=>resetViz()} disabled={running}>초기화</button>
+                      <button className={styles.clearBtn} onClick={()=>resetViz()} disabled={running && !paused}>초기화</button>
                     </div>
                   </div>
-                  <button className={`${styles.runBtn} ${running?styles.runBtnRunning:''}`} onClick={running?undefined:runGraph} disabled={running}>
-                    {running ? <><div className={styles.spinner}/>탐색 중...</> : <><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polygon points="2,1 11,6 2,11" fill="currentColor"/></svg>{algo.toUpperCase()} 시각화</>}
-                  </button>
+                  {!running && !paused && (
+                    <button className={styles.runBtn} onClick={runGraph}>
+                      <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polygon points="2,1 11,6 2,11" fill="currentColor"/></svg>{algo.toUpperCase()} 시각화
+                    </button>
+                  )}
+                  {running && !paused && (
+                    <button className={styles.pauseBtn} onClick={pauseAnim}>
+                      ❚❚ 일시정지
+                    </button>
+                  )}
+                  {paused && (
+                    <button className={styles.runBtn} onClick={resumeAnim}>
+                      <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polygon points="2,1 11,6 2,11" fill="currentColor"/></svg>재개
+                    </button>
+                  )}
                 </div>
 
                 {selectMode && (
@@ -1204,9 +1420,9 @@ export default function Visualizer({ isAdmin }) {
 
                 {/* SVG 트리 */}
                 <div className={styles.treeWrap}>
-                  <svg viewBox="0 0 760 400" className={styles.treeSvg}>
-                    {TREE_EDGES.map(({u,v,w})=>{
-                      const nu=TREE_NODES[u], nv=TREE_NODES[v]
+                  <svg viewBox={curGraph.viewBox} className={styles.treeSvg}>
+                    {curEdges.map(({u,v,w})=>{
+                      const nu=curNodes[u], nv=curNodes[v]
                       const eKey=`${Math.min(u,v)}-${Math.max(u,v)}`
                       const isPath=pathEdges.has(eKey)
                       return (
@@ -1224,7 +1440,7 @@ export default function Visualizer({ isAdmin }) {
                         </g>
                       )
                     })}
-                    {TREE_NODES.map(({id,x,y,label})=>{
+                    {curNodes.map(({id,x,y,label})=>{
                       const st = nodeStates[id]??'unvisited'
                       const {fill,stroke,textFill} = getNodeStyle(st, concept.color)
                       const isCurrent = st==='current'
@@ -1299,19 +1515,19 @@ export default function Visualizer({ isAdmin }) {
 
             {renderConcept(sortConcept)}
 
-            {/* 코드 (Python) */}
+            {/* 코드 (C) */}
             <div className={styles.codeSection}>
               <div className={styles.codeSectionHeader}>
                 <div className={styles.codeSectionLeft}>
                   <button className={styles.codeToggle} onClick={()=>setShowCode(v=>!v)}>
-                    {showCode?'▾':'▸'} Python 코드 보기
+                    {showCode?'▾':'▸'} C 코드 보기
                   </button>
                   {codePhase && showCode && (
                     <span className={styles.phaseChip}><span className={styles.phaseDot}/>{PHASE_DESC[codePhase]}</span>
                   )}
                 </div>
                 {showCode && (
-                  <span className={styles.langTab} style={{cursor:'default',background:'none',color:'var(--text-muted)',fontSize:12,fontFamily:'var(--font-mono)'}}>Python</span>
+                  <span className={styles.langTab} style={{cursor:'default',background:'none',color:'var(--text-muted)',fontSize:12,fontFamily:'var(--font-mono)'}}>C</span>
                 )}
               </div>
               {showCode && (
@@ -1338,6 +1554,14 @@ export default function Visualizer({ isAdmin }) {
             {/* 정렬 컨트롤 */}
             <div className={styles.controls}>
               <div className={styles.controlGroup}>
+                <span className={styles.controlLabel}>배열 크기</span>
+                <div className={styles.btnGroup}>
+                  {[8, 16, 24, 32].map(n=>(
+                    <button key={n} className={`${styles.groupBtn} ${arraySize===n?styles.groupActive:''}`} onClick={()=>handleArraySizeChange(n)} disabled={running}>{n}</button>
+                  ))}
+                </div>
+              </div>
+              <div className={styles.controlGroup}>
                 <span className={styles.controlLabel}>속도</span>
                 <div className={styles.btnGroup}>
                   {[{id:'slow',label:'느리게'},{id:'normal',label:'보통'},{id:'fast',label:'빠르게'}].map(s=>(
@@ -1348,13 +1572,25 @@ export default function Visualizer({ isAdmin }) {
               <div className={styles.controlGroup}>
                 <span className={styles.controlLabel}>배열</span>
                 <div className={styles.btnGroup}>
-                  <button className={styles.mazeBtn} onClick={()=>resetSort(genArray())} disabled={running}>새 배열</button>
-                  <button className={styles.clearBtn} onClick={()=>resetSort()} disabled={running}>초기화</button>
+                  <button className={styles.mazeBtn} onClick={()=>resetSort(genArray(arraySize))} disabled={running && !paused}>새 배열</button>
+                  <button className={styles.clearBtn} onClick={()=>resetSort()} disabled={running && !paused}>초기화</button>
                 </div>
               </div>
-              <button className={`${styles.runBtn} ${running?styles.runBtnRunning:''}`} onClick={running?undefined:runSort} disabled={running}>
-                {running ? <><div className={styles.spinner}/>정렬 중...</> : <><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polygon points="2,1 11,6 2,11" fill="currentColor"/></svg>{sortConcept.abbr} 시작</>}
-              </button>
+              {!running && !paused && (
+                <button className={styles.runBtn} onClick={runSort}>
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polygon points="2,1 11,6 2,11" fill="currentColor"/></svg>{sortConcept.abbr} 시작
+                </button>
+              )}
+              {running && !paused && (
+                <button className={styles.pauseBtn} onClick={pauseAnim}>
+                  ❚❚ 일시정지
+                </button>
+              )}
+              {paused && (
+                <button className={styles.runBtn} onClick={resumeAnim}>
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polygon points="2,1 11,6 2,11" fill="currentColor"/></svg>재개
+                </button>
+              )}
             </div>
 
             {/* 통계 */}

@@ -51,7 +51,7 @@ export default function Login() {
 
         <div className={styles.footer}>
           <Link to="/signup" className={styles.link}>
-            계정 없냐? 회원가입 ㄱ
+            회원가입하기
           </Link>
         </div>
       </form>

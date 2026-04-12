@@ -38,7 +38,7 @@ export default function Home() {
         </div>
 
         <div className={styles.heroContent}>
-          <div className={styles.pill}>오픈 베타 — 14만 2천 명의 코더와 함께</div>
+          <div className={styles.pill}>오픈 베타</div>
           <h1 className={styles.heroTitle}>
             실력을 갈고 닦으세요.<br />
             <span className={styles.gradient}>풀고. 겨루고. 성장하세요.</span>

@@ -461,6 +461,25 @@
   border: 1px solid var(--teal-border) !important;
 }
 
+.pauseBtn {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 22px;
+  border-radius: 9px;
+  border: 1px solid rgba(251,191,36,0.4);
+  background: rgba(251,191,36,0.1);
+  color: #fbbf24;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity 0.12s;
+  align-self: flex-end;
+  white-space: nowrap;
+}
+
+.pauseBtn:hover { opacity: 0.8; }
+
 /* ── Stats bar ─────────────────────────── */
 .statsBar {
   display: flex;

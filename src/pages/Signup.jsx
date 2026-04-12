@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { supabase } from '../supabaseClient'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import styles from './Signup.module.css'
 
 export default function Signup() {
@@ -63,14 +63,14 @@ export default function Signup() {
         <form onSubmit={handleSignup}>
           <input
             className={styles.input}
-            placeholder="username"
+            placeholder="아이디"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
 
           <input
             className={styles.input}
-            placeholder="email"
+            placeholder="이메일"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
@@ -78,7 +78,7 @@ export default function Signup() {
           <input
             className={styles.input}
             type="password"
-            placeholder="password"
+            placeholder="비밀번호"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
@@ -87,6 +87,12 @@ export default function Signup() {
             회원가입
           </button>
         </form>
+
+        <div className={styles.footer}>
+          <Link to="/login" className={styles.link}>
+            로그인하기
+          </Link>
+        </div>
 
         {error && <p className={styles.error}>{error}</p>}
       </div>
