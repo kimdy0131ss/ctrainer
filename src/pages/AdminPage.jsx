@@ -16,23 +16,6 @@ const EMPTY_FORM = {
   submissions: 0,
 }
 
-function localToRow(p) {
-  return {
-    id: p.id,
-    title: p.title,
-    difficulty: p.difficulty,
-    tags: p.tags,
-    description: p.description,
-    examples: p.examples,
-    constraints: p.constraints,
-    starter_c: p.starterCode?.c || '',
-    test_cases: p.testCases || [],
-    acceptance: p.acceptance,
-    submissions: p.submissions,
-    _source: 'local',
-  }
-}
-
 function dbToRow(p) {
   return { ...p, _source: 'supabase' }
 }
@@ -51,6 +34,7 @@ export default function AdminPage({ isAdmin }) {
   const [users, setUsers] = useState([])
   const [usersLoading, setUsersLoading] = useState(false)
   const [currentUserId, setCurrentUserId] = useState(null)
+  const [mainTab, setMainTab] = useState('problems')
 
   useEffect(() => {
     supabase.auth.getUser().then(({ data }) => setCurrentUserId(data?.user?.id || null))
@@ -94,9 +78,8 @@ export default function AdminPage({ isAdmin }) {
     setLoading(true)
     const { data } = await supabase.from('problems').select('*').order('id', { ascending: true })
     const dbRows = (data || []).map(dbToRow)
-    const dbIds = new Set(dbRows.map(r => r.id))
     const visibleDbRows = dbRows.filter(r => !r.hidden)
-    const localRows = LOCAL_PROBLEMS.filter(p => !dbIds.has(p.id)).map(localToRow)
+    const localRows = []  // 로컬 문제 제거
     setRows([...visibleDbRows, ...localRows].sort((a, b) => a.id - b.id))
     setLoading(false)
   }
@@ -350,7 +333,7 @@ export default function AdminPage({ isAdmin }) {
               <input className={styles.input} value={form.title} onChange={e => setForm(f => ({ ...f, title: e.target.value }))} />
 
               <label className={styles.label}>난이도</label>
-              <select className={styles.input} value={form.difficulty} onChange={e => setForm(f => ({ ...f, difficulty: e.target.value }))}>
+              <select className={styles.input} value={form.difficulty} onChange={e => setForm(f => ({ ...f, difficulty: e.target.value }))} >
                 <option value="easy">Easy</option>
                 <option value="medium">Medium</option>
                 <option value="hard">Hard</option>
