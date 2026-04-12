@@ -84,6 +84,14 @@ export default function AdminPage({ isAdmin }) {
     setUsers(prev => prev.map(u => u.id === user.id ? { ...u, is_admin: !u.is_admin } : u))
   }
 
+  const deleteUser = async (user) => {
+    if (!window.confirm(`"${user.username}" 유저를 삭제하시겠습니까?\n제출 내역, 풀이 기록이 모두 삭제됩니다.`)) return
+    const { error } = await supabase.rpc('delete_user', { target_user_id: user.id })
+    if (error) { setMsg({ type: 'error', text: '삭제 실패: ' + error.message }); return }
+    setUsers(prev => prev.filter(u => u.id !== user.id))
+    setMsg({ type: 'success', text: `"${user.username}" 유저가 삭제되었습니다.` })
+  }
+
   const loadAll = async () => {
     setLoading(true)
     const { data } = await supabase.from('problems').select('*').order('id', { ascending: true })
@@ -216,6 +224,7 @@ export default function AdminPage({ isAdmin }) {
                   <th>교사</th>
                   <th>관리자 권한</th>
                   <th>교사 권한</th>
+                  <th>삭제</th>
                 </tr>
               </thead>
               <tbody>
@@ -249,6 +258,13 @@ export default function AdminPage({ isAdmin }) {
                           onClick={() => toggleTeacher(user)}
                         >
                           {user.is_teacher ? '권한 취소' : '교사 권한 부여'}
+                        </button>
+                      )}
+                    </td>
+                    <td>
+                      {user.id !== currentUserId && (
+                        <button className={styles.deleteBtn} onClick={() => deleteUser(user)}>
+                          삭제
                         </button>
                       )}
                     </td>
