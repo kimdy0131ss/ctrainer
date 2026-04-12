@@ -16,7 +16,7 @@ function StatCard({ value, label }) {
 }
 
 export default function Home() {
-  const featured = PROBLEMS.slice(0, 3)
+  const [featured, setFeatured] = useState(PROBLEMS.slice(0, 3))
   const [userCount, setUserCount] = useState(null)
   const [problemCount, setProblemCount] = useState(null)
 
@@ -27,8 +27,13 @@ export default function Home() {
       .then(({ count }) => setUserCount(count ?? 0))
     supabase
       .from('problems')
-      .select('id', { count: 'exact', head: true })
-      .then(({ count }) => setProblemCount(count ?? STATS.totalProblems))
+      .select('id, hidden')
+      .then(({ data, count: _ }) => {
+        const hiddenIds = new Set((data || []).filter(p => p.hidden).map(p => p.id))
+        const dbIds = new Set((data || []).map(p => p.id))
+        setProblemCount((data || []).filter(p => !p.hidden).length || STATS.totalProblems)
+        setFeatured(PROBLEMS.filter(p => !hiddenIds.has(p.id) && !dbIds.has(p.id)).slice(0, 3))
+      })
   }, [])
 
   return (

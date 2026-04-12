@@ -38,9 +38,10 @@ export default function Problems() {
       const { data } = await supabase.from('problems').select('*').order('id', { ascending: true })
       if (data && data.length > 0) {
         const dbIds = new Set(data.map(p => p.id))
+        const hiddenIds = new Set(data.filter(p => p.hidden).map(p => p.id))
         const merged = [
-          ...data.map(normalizeDB),
-          ...PROBLEMS.filter(p => !dbIds.has(p.id)),
+          ...data.filter(p => !p.hidden).map(normalizeDB),
+          ...PROBLEMS.filter(p => !dbIds.has(p.id) && !hiddenIds.has(p.id)),
         ].sort((a, b) => a.id - b.id)
         setProblems(merged)
       }

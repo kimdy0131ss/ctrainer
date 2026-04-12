@@ -97,8 +97,9 @@ export default function AdminPage({ isAdmin }) {
     const { data } = await supabase.from('problems').select('*').order('id', { ascending: true })
     const dbRows = (data || []).map(dbToRow)
     const dbIds = new Set(dbRows.map(r => r.id))
+    const visibleDbRows = dbRows.filter(r => !r.hidden)
     const localRows = LOCAL_PROBLEMS.filter(p => !dbIds.has(p.id)).map(localToRow)
-    setRows([...dbRows, ...localRows].sort((a, b) => a.id - b.id))
+    setRows([...visibleDbRows, ...localRows].sort((a, b) => a.id - b.id))
     setLoading(false)
   }
 
@@ -131,6 +132,14 @@ export default function AdminPage({ isAdmin }) {
     if (!window.confirm(`"${row.title}" 문제를 삭제하시겠습니까?`)) return
     if (row._source === 'supabase') {
       const { error } = await supabase.from('problems').delete().eq('id', row.id)
+      if (error) { setMsg({ type: 'error', text: '삭제 실패: ' + error.message }); return }
+    } else {
+      const { error } = await supabase.from('problems').upsert([{
+        id: row.id, title: row.title, difficulty: row.difficulty, tags: row.tags,
+        description: row.description, examples: row.examples, constraints: row.constraints,
+        starter_c: row.starterCode?.c || '', test_cases: row.testCases || [],
+        acceptance: row.acceptance, submissions: row.submissions, hidden: true,
+      }])
       if (error) { setMsg({ type: 'error', text: '삭제 실패: ' + error.message }); return }
     }
     setRows(prev => prev.filter(r => r.id !== row.id))
