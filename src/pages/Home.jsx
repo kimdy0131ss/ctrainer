@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { PROBLEMS, STATS } from '../data/problems'
 import { supabase } from '../supabaseClient'
 import DifficultyBadge from '../components/judge/DifficultyBadge'
 import styles from './Home.module.css'
@@ -16,9 +15,9 @@ function StatCard({ value, label }) {
 }
 
 export default function Home() {
-  const [featured, setFeatured] = useState(PROBLEMS.slice(0, 3))
   const [userCount, setUserCount] = useState(null)
   const [problemCount, setProblemCount] = useState(null)
+  const [featured, setFeatured] = useState([])
 
   useEffect(() => {
     supabase
@@ -29,12 +28,9 @@ export default function Home() {
       .from('problems')
       .select('id, hidden')
       .then(({ data, count: _ }) => {
-        const hiddenIds = new Set((data || []).filter(p => p.hidden).map(p => p.id))
-        const dbIds = new Set((data || []).map(p => p.id))
-        const visibleLocal = PROBLEMS.filter(p => !dbIds.has(p.id) && !hiddenIds.has(p.id))
         const visibleDb = (data || []).filter(p => !p.hidden)
-        setProblemCount(visibleDb.length + visibleLocal.length)
-        setFeatured(visibleLocal.slice(0, 3))
+        setProblemCount(visibleDb.length)
+        setFeatured(visibleDb.slice(0, 3))
       })
   }, [])
 
@@ -71,8 +67,8 @@ export default function Home() {
           <div className={styles.statsGrid}>
             <StatCard value={problemCount ?? '—'} label="수록 문제 수" />
             <StatCard value={userCount ?? '—'} label="함께 준비 중인 코더" />
-            <StatCard value={STATS.submissionsToday} label="오늘의 제출 수" />
-            <StatCard value={STATS.totalAC} label="누적 정답 (AC)" />
+            <StatCard value={0} label="오늘의 제출 수" />
+            <StatCard value={0} label="누적 정답 (AC)" />
           </div>
         </div>
       </section>
@@ -91,8 +87,8 @@ export default function Home() {
                   <span className={styles.problemNum}>#{problem.id}</span>
                   {problem.solved && (
                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className={styles.solvedIcon}>
-                      <circle cx="8" cy="8" r="7.5" stroke="var(--easy)" strokeOpacity="0.5"/>
-                      <path d="M5 8l2 2 4-4" stroke="var(--easy)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                      <circle cx="8" cy="8" r="7.5" stroke="var(--easy)" strokeOpacity="0.5" />
+                      <path d="M5 8l2 2 4-4" stroke="var(--easy)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
                   )}
                 </div>
@@ -102,7 +98,7 @@ export default function Home() {
                   <span className={styles.acceptance}>정답률 {problem.acceptance}%</span>
                 </div>
                 <div className={styles.tagList}>
-                  {problem.tags.slice(0, 2).map(tag => (
+                  {(problem.tags || []).slice(0, 2).map(tag => (
                     <span key={tag} className={styles.tag}>{tag}</span>
                   ))}
                 </div>

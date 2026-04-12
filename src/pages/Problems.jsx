@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { PROBLEMS } from '../data/problems'
 import { supabase } from '../supabaseClient'
 import DifficultyBadge from '../components/judge/DifficultyBadge'
 import styles from './Problems.module.css'
@@ -27,11 +26,11 @@ const DIFF_LABELS = { all: '전체', easy: '쉬움', medium: '보통', hard: '�
 const STATUS_LABELS = { all: '전체', solved: '푼 문제', unsolved: '안 푼 문제' }
 
 export default function Problems() {
-  const [problems, setProblems] = useState(PROBLEMS)
   const [search, setSearch] = useState('')
   const [difficulty, setDifficulty] = useState('all')
   const [selectedTag, setSelectedTag] = useState(null)
   const [status, setStatus] = useState('all')
+  const [problems, setProblems] = useState([])
 
   useEffect(() => {
     const load = async () => {
@@ -41,7 +40,6 @@ export default function Problems() {
         const hiddenIds = new Set(data.filter(p => p.hidden).map(p => p.id))
         const merged = [
           ...data.filter(p => !p.hidden).map(normalizeDB),
-          ...PROBLEMS.filter(p => !dbIds.has(p.id) && !hiddenIds.has(p.id)),
         ].sort((a, b) => a.id - b.id)
         setProblems(merged)
       }

@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { supabase } from '../supabaseClient'
-import { PROBLEMS as LOCAL_PROBLEMS } from '../data/problems'
 import styles from './AdminPage.module.css'
 
 const EMPTY_FORM = {
@@ -40,7 +39,6 @@ function dbToRow(p) {
 
 export default function AdminPage({ isAdmin }) {
   const navigate = useNavigate()
-  const [mainTab, setMainTab] = useState('problems')
   const [rows, setRows] = useState([])
   const [loading, setLoading] = useState(true)
   const [editingId, setEditingId] = useState(null)

@@ -1,7 +1,6 @@
 import { useState, useEffect, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { supabase } from '../supabaseClient'
-import { PROBLEMS as LOCAL_PROBLEMS } from '../data/problems'
 import styles from './Teacher.module.css'
 
 function computeStreak(dates) {
@@ -85,9 +84,7 @@ export default function Teacher() {
 
       setClassrooms(cls || [])
       setAllProblems(
-        probs?.length
-          ? probs
-          : LOCAL_PROBLEMS.map(p => ({ id: p.id, title: p.title, difficulty: p.difficulty, tags: p.tags }))
+        probs
       )
       if (cls?.length) setActiveClassroom(cls[0])
       setInitialized(true)

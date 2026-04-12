@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef, useContext } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import Editor from '@monaco-editor/react'
-import { PROBLEMS } from '../data/problems'
 import { supabase } from '../supabaseClient'
 import { ThemeContext } from '../App'
 import DifficultyBadge from '../components/judge/DifficultyBadge'
