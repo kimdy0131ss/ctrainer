@@ -18,12 +18,17 @@ function StatCard({ value, label }) {
 export default function Home() {
   const featured = PROBLEMS.slice(0, 3)
   const [userCount, setUserCount] = useState(null)
+  const [problemCount, setProblemCount] = useState(null)
 
   useEffect(() => {
     supabase
       .from('profiles')
       .select('id', { count: 'exact', head: true })
       .then(({ count }) => setUserCount(count ?? 0))
+    supabase
+      .from('problems')
+      .select('id', { count: 'exact', head: true })
+      .then(({ count }) => setProblemCount(count ?? STATS.totalProblems))
   }, [])
 
   return (
@@ -57,7 +62,7 @@ export default function Home() {
       <section className={styles.statsSection}>
         <div className={styles.container}>
           <div className={styles.statsGrid}>
-            <StatCard value={STATS.totalProblems} label="수록 문제 수" />
+            <StatCard value={problemCount ?? '—'} label="수록 문제 수" />
             <StatCard value={userCount ?? '—'} label="함께 준비 중인 코더" />
             <StatCard value={STATS.submissionsToday} label="오늘의 제출 수" />
             <StatCard value={STATS.totalAC} label="누적 정답 (AC)" />
