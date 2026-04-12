@@ -47,6 +47,7 @@ export default function Teacher() {
   const [subRows, setSubRows] = useState([])
   const [assignments, setAssignments] = useState([])
   const [pendingInvites, setPendingInvites] = useState([])
+  const [pendingStudents, setPendingStudents] = useState([])
   const [allProblems, setAllProblems] = useState([])
 
   const [tab, setTab] = useState('dashboard')
@@ -55,7 +56,7 @@ export default function Teacher() {
   const [searchStudent, setSearchStudent] = useState('')
 
   const [newAssignment, setNewAssignment] = useState({ title: '', description: '', dueDate: '', problems: [] })
-  const [problemSearch, setProblemSearch] = useState('')  // 문제 검색 추가
+  const [problemSearch, setProblemSearch] = useState('')
   const [submitting, setSubmitting] = useState(false)
 
   const [newClassName, setNewClassName] = useState('')
@@ -100,6 +101,7 @@ export default function Teacher() {
     const accepted = (memberRows || []).filter(r => r.status === 'accepted')
     const pending  = (memberRows || []).filter(r => r.status === 'pending')
     setPendingInvites(pending.map(r => r.profiles?.username).filter(Boolean))
+    setPendingStudents(pending.map(r => ({ id: r.student_id, username: r.profiles?.username })))
 
     const studentIds = accepted.map(r => r.student_id)
     if (!studentIds.length) {
@@ -206,7 +208,7 @@ export default function Teacher() {
     if (!error) {
       setTab('assignments')
       setNewAssignment({ title: '', description: '', dueDate: '', problems: [] })
-      setProblemSearch('')  // 검색 초기화
+      setProblemSearch('')
       loadClassroomData(activeClassroom.id)
     }
     setSubmitting(false)
@@ -232,7 +234,6 @@ export default function Teacher() {
     s.username.toLowerCase().includes(searchStudent.toLowerCase())
   )
 
-  // 문제 검색 필터링
   const filteredProblems = allProblems.filter(p =>
     p.title.toLowerCase().includes(problemSearch.toLowerCase()) ||
     (p.tags || []).some(t => t.toLowerCase().includes(problemSearch.toLowerCase()))
@@ -278,6 +279,7 @@ export default function Teacher() {
           {[
             { id: 'dashboard',      icon: '⬡', label: '대시보드' },
             { id: 'students',       icon: '◈', label: '학생 관리' },
+            { id: 'pending',        icon: '⏳', label: '초대 대기 중' },
             { id: 'assignments',    icon: '◻', label: '과제 관리' },
             { id: 'new-assignment', icon: '+', label: '과제 출제', accent: true },
           ].map(item => (
@@ -543,6 +545,31 @@ export default function Teacher() {
               </div>
             )}
 
+            {/* ── 대기 중 학생 ── */}
+            {tab === 'pending' && (
+              <div className={styles.section}>
+                <div className={styles.sectionHeader}>
+                  <h1 className={styles.sectionTitle}>대기 중인 학생</h1>
+                  <span className={styles.sectionDate}>초대 승인 대기 중</span>
+                </div>
+
+                {pendingStudents.length === 0 ? (
+                  <div className={styles.emptyState}><p>대기 중인 학생이 없습니다.</p></div>
+                ) : (
+                  <div className={styles.studentGrid}>
+                    {pendingStudents.map(s => (
+                      <div key={s.id} className={styles.studentCard} style={{ opacity: 0.7 }}>
+                        <div className={styles.studentAvatar}>{s.username[0].toUpperCase()}</div>
+                        <div className={styles.studentName}>{s.username}</div>
+                        <div className={styles.studentHandle}>@{s.username}</div>
+                        <div style={{ fontSize: 12, color: 'var(--text-muted)', marginTop: 8, textAlign: 'center' }}>초대 대기 중</div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
+
             {/* ── 과제 관리 ── */}
             {tab === 'assignments' && !selectedAssignment && (
               <div className={styles.section}>
@@ -706,7 +733,6 @@ export default function Teacher() {
                       <span className={styles.formHint}>{newAssignment.problems.length}개 선택됨</span>
                     </label>
                     
-                    {/* 문제 검색 추가 */}
                     <input 
                       className={styles.formInput}
                       type="text"
