@@ -91,40 +91,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Featured Problems */}
-      <section className={styles.featuredSection}>
-        <div className={styles.container}>
-          <div className={styles.sectionHeader}>
-            <h2 className={styles.sectionTitle}>추천 문제</h2>
-            <Link to="/problems" className={styles.seeAll}>전체 보기 →</Link>
-          </div>
-          <div className={styles.problemGrid}>
-            {featured.map(problem => (
-              <Link to={`/problems/${problem.id}`} key={problem.id} className={styles.problemCard}>
-                <div className={styles.problemCardTop}>
-                  <span className={styles.problemNum}>#{problem.id}</span>
-                  {problem.solved && (
-                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className={styles.solvedIcon}>
-                      <circle cx="8" cy="8" r="7.5" stroke="var(--easy)" strokeOpacity="0.5" />
-                      <path d="M5 8l2 2 4-4" stroke="var(--easy)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                  )}
-                </div>
-                <h3 className={styles.problemTitle}>{problem.title}</h3>
-                <div className={styles.problemMeta}>
-                  <DifficultyBadge difficulty={problem.difficulty} />
-                  <span className={styles.acceptance}>정답률 {problem.acceptance}%</span>
-                </div>
-                <div className={styles.tagList}>
-                  {(problem.tags || []).slice(0, 2).map(tag => (
-                    <span key={tag} className={styles.tag}>{tag}</span>
-                  ))}
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* CTA */}
       <section className={styles.ctaSection}>
