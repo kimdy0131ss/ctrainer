@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { supabase } from '../supabaseClient'
-import DifficultyBadge from '../components/judge/DifficultyBadge'
 import styles from './Home.module.css'
 
 function StatCard({ value, label }) {
@@ -86,7 +85,7 @@ export default function Home() {
             <StatCard value={problemCount ?? '—'} label="수록 문제 수" />
             <StatCard value={userCount ?? '—'} label="함께 준비 중인 코더" />
             <StatCard value={submissionsToday ?? '—'} label="오늘의 제출 수" />
-            <StatCard value={totalAC ?? '—'} label="누적 정답 (AC)" />
+            <StatCard value={totalAC ?? '—'} label="계정 누적 정답 (AC)" />
           </div>
         </div>
       </section>
