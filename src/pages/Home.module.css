@@ -83,11 +83,11 @@
   display: inline-block;
   padding: 6px 16px;
   border-radius: 20px;
-  border: 1px solid var(--teal-border);
-  background: var(--teal-10);
-  color: var(--accent-teal);
+  border: 1px solid rgba(45, 212, 191, 0.3);
+  background: #aae4e2;
+  color: #000;
   font-size: 13px;
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: 0.2px;
   margin-bottom: 28px;
 }
@@ -156,7 +156,7 @@
 
 .btnGhost:hover {
   color: var(--text-primary);
-  border-color: var(--border-hover);
+  border-color: rgba(255,255,255,0.25);
   background: var(--bg-card);
 }
 
@@ -244,7 +244,6 @@
   border-radius: 14px;
   border: 1px solid var(--border);
   background: var(--bg-card);
-  box-shadow: var(--card-shadow);
   transition: background 0.15s, border-color 0.15s, transform 0.15s;
   cursor: pointer;
 }
@@ -301,7 +300,7 @@
 .tag {
   padding: 3px 10px;
   border-radius: 6px;
-  background: var(--bg-tag);
+  background: rgba(255,255,255,0.05);
   border: 1px solid var(--border);
   font-size: 11px;
   color: var(--text-secondary);
@@ -370,35 +369,4 @@
   font-size: 13px;
   color: var(--text-muted);
   text-align: center;
-}
-
-/* ── Light mode overrides ─────────────── */
-[data-theme="light"] .aurora { opacity: 0.32; }
-
-[data-theme="light"] .a1 {
-  background: radial-gradient(circle, #14b8a6, #0891b2);
-}
-[data-theme="light"] .a2 {
-  background: radial-gradient(circle, #8b5cf6, #6d28d9);
-}
-[data-theme="light"] .a3 {
-  background: radial-gradient(circle, #3b82f6, #2563eb);
-}
-
-[data-theme="light"] .hero {
-  background: linear-gradient(160deg, #e4eef8 0%, #eef2fb 50%, #ede8f8 100%);
-}
-
-[data-theme="light"] .statCard {
-  background: #fff;
-}
-
-[data-theme="light"] .ctaCard {
-  background: linear-gradient(160deg, #edf4fb 0%, #ece8f8 100%);
-  border-color: var(--border-hover);
-}
-
-[data-theme="light"] .ctaAurora {
-  background: radial-gradient(ellipse, rgba(13,148,136,0.25) 0%, rgba(124,58,237,0.18) 60%, transparent 100%);
-  opacity: 1;
 }

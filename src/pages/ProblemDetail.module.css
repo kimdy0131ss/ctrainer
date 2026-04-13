@@ -149,7 +149,7 @@
   font-size: 14px;
   line-height: 1.75;
   color: var(--text-secondary);
-  white-space: pre-line;
+  white-space: pre-wrap;
 }
 
 .examples {
