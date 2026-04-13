@@ -12,6 +12,7 @@
   z-index: 0;
 }
 
+/* ── 배경 효과 ── */
 .orb {
   position: absolute;
   border-radius: 50%;
@@ -19,7 +20,7 @@
 }
 .orb1 { width:500px; height:500px; top:-150px; left:-100px;  background:radial-gradient(circle,#0d4a42,transparent); opacity:.5; }
 .orb2 { width:400px; height:400px; top:-100px; right:-80px;  background:radial-gradient(circle,#2d1b5e,transparent); opacity:.5; }
-.orb3 { width:600px; height:300px; bottom:0;   left:20%;     background:radial-gradient(circle,#0c2a4a,transparent); opacity:.4; }
+.orb3 { width:600px; height:300px; bottom:0; left:20%; background:radial-gradient(circle,#0c2a4a,transparent); opacity:.4; }
 
 .gridLines {
   position: absolute;
@@ -63,15 +64,18 @@
   font-size: 12px;
   font-weight: 500;
   color: #2dd4bf;
-  letter-spacing: 0.3px;
 }
 .badgeDot {
-  width: 6px; height: 6px;
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
   background: #2dd4bf;
   animation: pulse 2s ease-in-out infinite;
 }
-@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+@keyframes pulse {
+  0%,100%{opacity:1}
+  50%{opacity:.3}
+}
 
 /* ── 타이틀 ── */
 .title {
@@ -86,7 +90,6 @@
   background: linear-gradient(135deg, #2dd4bf 0%, #a78bfa 60%, #f87171 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  background-clip: text;
 }
 
 .subtitle {
@@ -95,209 +98,13 @@
   color: var(--text-secondary);
   text-align: center;
 }
-.subtitle strong { color: var(--text-primary); font-weight: 600; }
-
-/* ── 기계 목업 ── */
-.mockup {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 12px;
-  width: 100%;
+.subtitle strong {
+  color: var(--text-primary);
 }
 
-.panel {
-  background: var(--bg-tag);
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  overflow: hidden;
-}
-
-.panelHeader {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 14px;
-  border-bottom: 1px solid var(--border);
-  background: var(--bg-subtle);
-}
-
-.dots { display:flex; gap:5px; }
-.dots span { width:10px; height:10px; border-radius:50%; display:block; }
-
-.panelTitle {
-  font-size: 11px;
-  font-weight: 600;
-  color: var(--text-muted);
-  letter-spacing: 0.4px;
-  font-family: var(--font-mono);
-}
-
-/* ── 코드 ── */
-.code {
-  padding: 12px 0;
-  font-family: var(--font-mono);
-  font-size: 12px;
-}
-.codeLine {
-  display: flex;
-  gap: 12px;
-  padding: 3px 14px;
-  transition: background 0.15s;
-}
-.codeActive { background: rgba(45,212,191,0.08); }
-.lineNum { color: var(--text-muted); user-select:none; width:14px; text-align:right; flex-shrink:0; }
-.lineText { color: var(--text-secondary); }
-
-.var  { color: #2dd4bf; }
-.ptr  { color: #a78bfa; }
-.arr  { color: #fbbf24; }
-.op   { color: #f87171; }
-
-/* ── 기계 코어 ── */
-.core {
-  padding: 18px 14px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.coreRow {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.memBox {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2px;
-  padding: 8px 10px;
-  border-radius: 8px;
-  border: 1px solid var(--border);
-  background: var(--bg-tag);
-  min-width: 54px;
-}
-.memLit {
-  border-color: rgba(45,212,191,0.4);
-  background: rgba(45,212,191,0.06);
-}
-.memType { font-size: 9px; color: var(--text-muted); font-family:var(--font-mono); text-transform:uppercase; }
-.memVal  { font-size: 13px; font-weight: 700; color: #2dd4bf; font-family:var(--font-mono); }
-.memName { font-size: 10px; color: var(--text-secondary); font-family:var(--font-mono); }
-
-.wire {
-  display: flex;
-  align-items: center;
-  gap: 0;
-  flex: 1;
-}
-.wireLine {
-  flex: 1;
-  height: 1px;
-  background: linear-gradient(90deg, rgba(167,139,250,0.6), rgba(167,139,250,0.2));
-}
-.wireArr { font-size: 10px; color: #a78bfa; flex-shrink:0; }
-
-.conveyor {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.convLabel { font-size: 10px; color: var(--text-muted); font-family:var(--font-mono); flex-shrink:0; }
-.convTrack { display:flex; gap:3px; }
-.convCell {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1px;
-  padding: 5px 8px;
-  border-radius: 5px;
-  border: 1px solid rgba(251,191,36,0.3);
-  background: rgba(251,191,36,0.06);
-}
-.convIdx { font-size: 9px; color: var(--text-muted); font-family:var(--font-mono); }
-.convVal { font-size: 12px; font-weight: 700; color: #fbbf24; font-family:var(--font-mono); }
-
-.gears {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-  padding-top: 4px;
-}
-.gear {
-  border-radius: 50%;
-  border: 2px solid rgba(45,212,191,0.25);
-  background: repeating-conic-gradient(rgba(45,212,191,0.1) 0deg 30deg, transparent 30deg 60deg);
-}
-.gearL { width:36px; height:36px; }
-.gearS { width:24px; height:24px; border-color:rgba(167,139,250,0.25);
-  background: repeating-conic-gradient(rgba(167,139,250,0.1) 0deg 45deg, transparent 45deg 90deg); }
-
-/* ── 대시보드 ── */
-.dash {
-  padding: 16px 14px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.resource { display:flex; flex-direction:column; gap:5px; }
-.resTop { display:flex; justify-content:space-between; align-items:center; }
-.resLabel { font-size: 11px; color: var(--text-muted); font-weight:500; }
-.resVal { font-size: 13px; font-weight:700; font-family:var(--font-mono); }
-.resUnit { font-size: 10px; color: var(--text-muted); font-weight:400; }
-.resBar { height:4px; border-radius:2px; background:var(--bg-progress); overflow:hidden; }
-.resFill { height:100%; border-radius:2px; transition:width .4s; }
-
-.score {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 12px;
-  border-radius: 8px;
-  border: 1px solid rgba(45,212,191,0.2);
-  background: rgba(45,212,191,0.05);
-  margin-top: 4px;
-}
-.scoreLabel { font-size: 11px; color: var(--text-secondary); font-weight:600; }
-.scoreVal {
-  font-size: 20px;
-  font-weight: 800;
-  font-family: var(--font-mono);
-  background: var(--gradient-accent);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-/* ── 실행 컨트롤 ── */
-.controls {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-}
-.ctrl {
-  padding: 8px 18px;
-  border-radius: 9px;
-  border: 1px solid var(--border);
-  background: var(--bg-tag);
-  color: var(--text-secondary);
-  font-size: 13px;
-  font-weight: 500;
-  cursor: default;
-  font-family: var(--font-sans);
-}
-.ctrlMain {
-  padding: 10px 28px;
-  background: var(--teal-06);
-  border-color: var(--teal-border);
-  color: var(--accent-teal);
-  font-weight: 700;
-}
-
-/* ── 3대 시스템 ── */
+/* ── 시스템 카드 ── */
 .systems {
+  margin-top: 80px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 16px;
@@ -313,13 +120,23 @@
   gap: 10px;
 }
 .sysIcon {
-  width: 38px; height: 38px;
+  width: 38px;
+  height: 38px;
   border-radius: 10px;
-  display: flex; align-items: center; justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-size: 18px;
 }
-.sysTitle { font-size: 14px; font-weight: 700; letter-spacing:-0.3px; }
-.sysDesc  { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
+.sysTitle {
+  font-size: 14px;
+  font-weight: 700;
+}
+.sysDesc {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
 
 /* ── 한 줄 정의 ── */
 .manifest {
@@ -331,25 +148,24 @@
 }
 .manifest p {
   font-size: 20px;
-  font-weight: 500;
   color: var(--text-secondary);
-  letter-spacing: -0.3px;
 }
 .manifest em {
-  font-style: normal;
   color: #a78bfa;
   font-weight: 700;
 }
 
 /* ── CTA ── */
-.cta { display:flex; gap:12px; }
+.cta {
+  display: flex;
+  gap: 12px;
+}
 .ctaPrimary {
   padding: 13px 32px;
   border-radius: 11px;
   border: none;
   background: var(--gradient-accent);
   color: #fff;
-  font-size: 15px;
   font-weight: 700;
   cursor: pointer;
 }
@@ -359,12 +175,12 @@
   border: 1px solid var(--border-hover);
   background: none;
   color: var(--text-secondary);
-  font-size: 15px;
-  font-weight: 500;
   cursor: pointer;
 }
 
+/* ── 반응형 ── */
 @media (max-width: 860px) {
-  .mockup  { grid-template-columns: 1fr; }
-  .systems { grid-template-columns: 1fr; }
+  .systems {
+    grid-template-columns: 1fr;
+  }
 }
