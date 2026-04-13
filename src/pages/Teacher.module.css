@@ -510,7 +510,7 @@
 
 .studentCard {
   background: var(--bg-card);
-  border: 1px solid var(--border);
+  border: 1px solid var(--text-secondary);
   border-radius: 14px;
   padding: 20px;
   cursor: pointer;
@@ -520,9 +520,10 @@
   gap: 8px;
   box-shadow: var(--card-shadow);
 }
+
 .studentCard:hover {
   background: var(--bg-card-hover);
-  border-color: var(--border-hover);
+  border-color: var(--text-secondary);
   transform: translateY(-2px);
 }
 
@@ -1061,4 +1062,20 @@ input[type="date"].formInput {
   .page { grid-template-columns: 1fr; }
   .sidebar { display: none; }
   .main { padding: 24px 16px; }
+}
+
+.deleteClassBtn {
+  margin-top: 8px;
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  background: rgba(248,113,113,0.1);
+  color: #f87171;
+  border: 1px solid rgba(248,113,113,0.3);
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.deleteClassBtn:hover {
+  background: rgba(248,113,113,0.2);
 }

@@ -99,7 +99,7 @@ export default function Teacher() {
       .eq('classroom_id', classroomId)
 
     const accepted = (memberRows || []).filter(r => r.status === 'accepted')
-    const pending  = (memberRows || []).filter(r => r.status === 'pending')
+    const pending = (memberRows || []).filter(r => r.status === 'pending')
     setPendingInvites(pending.map(r => r.profiles?.username).filter(Boolean))
     setPendingStudents(pending.map(r => ({ id: r.student_id, username: r.profiles?.username })))
 
@@ -113,7 +113,7 @@ export default function Teacher() {
       ])
       setSubRows(subs || [])
       setStudents(accepted.map(r => {
-        const solved   = (solvedRows || []).filter(s => s.user_id === r.student_id).length
+        const solved = (solvedRows || []).filter(s => s.user_id === r.student_id).length
         const userSubs = (subs || []).filter(s => s.user_id === r.student_id)
         return {
           id: r.student_id,
@@ -164,6 +164,41 @@ export default function Teacher() {
       setNewClassName(''); setShowNewClass(false)
     }
     setCreatingClass(false)
+  }
+
+  const handleDeleteClassroom = async () => {
+    if (!activeClassroom) return
+
+    const ok = window.confirm('반을 삭제하시겠습니까? (되돌릴 수 없음)')
+    if (!ok) return
+
+    try {
+      // FK 걸려있으면 반드시 순서 지켜야 함
+      await supabase
+        .from('classroom_students')
+        .delete()
+        .eq('classroom_id', activeClassroom.id)
+
+      await supabase
+        .from('assignments')
+        .delete()
+        .eq('classroom_id', activeClassroom.id)
+
+      const { error } = await supabase
+        .from('classrooms')
+        .delete()
+        .eq('id', activeClassroom.id)
+
+      if (error) throw error
+
+      // UI 갱신
+      const updated = classrooms.filter(c => c.id !== activeClassroom.id)
+      setClassrooms(updated)
+      setActiveClassroom(updated[0] || null)
+
+    } catch (e) {
+      alert('삭제 실패: ' + e.message)
+    }
   }
 
   const handleInvite = async () => {
@@ -248,10 +283,10 @@ export default function Teacher() {
         <div className={styles.classInfo}>
           <div className={styles.classIcon}>
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-              <rect x="2" y="4" width="16" height="12" rx="2" stroke="url(#tGrad)" strokeWidth="1.5"/>
-              <path d="M6 8h8M6 12h5" stroke="url(#tGrad)" strokeWidth="1.5" strokeLinecap="round"/>
+              <rect x="2" y="4" width="16" height="12" rx="2" stroke="url(#tGrad)" strokeWidth="1.5" />
+              <path d="M6 8h8M6 12h5" stroke="url(#tGrad)" strokeWidth="1.5" strokeLinecap="round" />
               <defs><linearGradient id="tGrad" x1="2" y1="4" x2="18" y2="16" gradientUnits="userSpaceOnUse">
-                <stop offset="0%" stopColor="#2dd4bf"/><stop offset="100%" stopColor="#a78bfa"/>
+                <stop offset="0%" stopColor="#2dd4bf" /><stop offset="100%" stopColor="#a78bfa" />
               </linearGradient></defs>
             </svg>
           </div>
@@ -274,13 +309,22 @@ export default function Teacher() {
         </div>
 
         <button className={styles.newClassBtn} onClick={() => setShowNewClass(true)}>+ 새 반 만들기</button>
+        
+        {activeClassroom && (
+          <button
+            className={styles.deleteClassBtn}
+            onClick={handleDeleteClassroom}
+          >
+            반 삭제
+          </button>
+        )}
 
         <nav className={styles.nav}>
           {[
-            { id: 'dashboard',      icon: '⬡', label: '대시보드' },
-            { id: 'students',       icon: '◈', label: '학생 관리' },
-            { id: 'pending',        icon: '⏳', label: '초대 대기 중' },
-            { id: 'assignments',    icon: '◻', label: '과제 관리' },
+            { id: 'dashboard', icon: '⬡', label: '대시보드' },
+            { id: 'students', icon: '◈', label: '학생 관리' },
+            { id: 'pending', icon: '⏳', label: '초대 대기 중' },
+            { id: 'assignments', icon: '◻', label: '과제 관리' },
             { id: 'new-assignment', icon: '+', label: '과제 출제', accent: true },
           ].map(item => (
             <button
@@ -346,10 +390,10 @@ export default function Teacher() {
 
                 <div className={styles.statsGrid}>
                   {[
-                    { label: '총 학생 수',    value: students.length,        unit: '명',  color: '#2dd4bf' },
-                    { label: '대기 중 초대',  value: pendingInvites.length,  unit: '명',  color: '#fbbf24' },
+                    { label: '총 학생 수', value: students.length, unit: '명', color: '#2dd4bf' },
+                    { label: '대기 중 초대', value: pendingInvites.length, unit: '명', color: '#fbbf24' },
                     { label: '평균 해결 문제', value: students.length ? Math.round(students.reduce((s, t) => s + t.solved, 0) / students.length) : 0, unit: '문제', color: '#a78bfa' },
-                    { label: '진행 중 과제',  value: activeAssignmentsCount, unit: '개',  color: '#34d399' },
+                    { label: '진행 중 과제', value: activeAssignmentsCount, unit: '개', color: '#34d399' },
                   ].map(s => (
                     <div key={s.label} className={styles.statCard}>
                       <div className={styles.statTop}>
@@ -457,11 +501,11 @@ export default function Teacher() {
 
                 <div className={styles.searchBar}>
                   <svg width="15" height="15" viewBox="0 0 16 16" fill="none">
-                    <circle cx="6.5" cy="6.5" r="5.5" stroke="currentColor" strokeWidth="1.5"/>
-                    <path d="M11 11l3 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+                    <circle cx="6.5" cy="6.5" r="5.5" stroke="currentColor" strokeWidth="1.5" />
+                    <path d="M11 11l3 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
                   </svg>
                   <input type="text" placeholder="학생 검색..." value={searchStudent}
-                    onChange={e => setSearchStudent(e.target.value)} className={styles.searchInput}/>
+                    onChange={e => setSearchStudent(e.target.value)} className={styles.searchInput} />
                 </div>
 
                 {students.length === 0 ? (
@@ -517,9 +561,9 @@ export default function Teacher() {
                   <h2 className={styles.cardTitle}>과제별 제출 현황</h2>
                   {assignments.length === 0 && <div className={styles.emptySmall}>과제가 없습니다.</div>}
                   {assignments.map(a => {
-                    const done  = studentDone(selectedStudent, a)
+                    const done = studentDone(selectedStudent, a)
                     const total = (a.problem_ids || []).length
-                    const acc   = new Set(subRows.filter(r => r.user_id === selectedStudent.id && r.status === 'accepted').map(r => r.problem_id))
+                    const acc = new Set(subRows.filter(r => r.user_id === selectedStudent.id && r.status === 'accepted').map(r => r.problem_id))
                     return (
                       <div key={a.id} className={styles.assignDetailRow}>
                         <div className={styles.assignRowTop}>
@@ -582,9 +626,9 @@ export default function Teacher() {
                 ) : (
                   <div className={styles.assignmentList}>
                     {assignments.map(a => {
-                      const stats  = getStats(a)
+                      const stats = getStats(a)
                       const status = assignmentStatus(a.due_date)
-                      const pct    = stats.total ? Math.round((stats.fullyDone / stats.total) * 100) : 0
+                      const pct = stats.total ? Math.round((stats.fullyDone / stats.total) * 100) : 0
                       return (
                         <div key={a.id} className={styles.assignCard} onClick={() => setSelectedAssignment(a)}>
                           <div className={styles.assignCardTop}>
@@ -596,7 +640,7 @@ export default function Teacher() {
                             <div className={styles.assignCardRight}>
                               <div className={styles.circleChart}>
                                 <svg width="64" height="64" viewBox="0 0 64 64">
-                                  <circle cx="32" cy="32" r="26" fill="none" stroke="var(--border)" strokeWidth="8"/>
+                                  <circle cx="32" cy="32" r="26" fill="none" stroke="var(--border)" strokeWidth="8" />
                                   <circle cx="32" cy="32" r="26" fill="none"
                                     stroke={pct === 100 ? '#34d399' : '#2dd4bf'} strokeWidth="8"
                                     strokeDasharray={`${2 * Math.PI * 26 * pct / 100} ${2 * Math.PI * 26}`}
@@ -624,8 +668,8 @@ export default function Teacher() {
 
             {/* ── 과제 상세 ── */}
             {tab === 'assignments' && selectedAssignment && (() => {
-              const pids  = selectedAssignment.problem_ids || []
-              const cols  = `140px repeat(${pids.length}, 1fr) 120px`
+              const pids = selectedAssignment.problem_ids || []
+              const cols = `140px repeat(${pids.length}, 1fr) 120px`
               return (
                 <div className={styles.section}>
                   <button className={styles.backBtn} onClick={() => setSelectedAssignment(null)}>← 목록으로</button>
@@ -650,9 +694,9 @@ export default function Teacher() {
                     <h2 className={styles.cardTitle}>문제별 정답률</h2>
                     <div className={styles.problemStatList}>
                       {pids.map(pid => {
-                        const prob    = allProblems.find(p => p.id === pid)
+                        const prob = allProblems.find(p => p.id === pid)
                         const acCount = students.filter(s => subRows.some(r => r.user_id === s.id && r.problem_id === pid && r.status === 'accepted')).length
-                        const pct     = students.length ? Math.round((acCount / students.length) * 100) : 0
+                        const pct = students.length ? Math.round((acCount / students.length) * 100) : 0
                         return (
                           <div key={pid} className={styles.problemStatRow}>
                             <span className={styles.problemStatTitle}>{prob?.title || `#${pid}`}</span>
@@ -676,7 +720,7 @@ export default function Teacher() {
                       </div>
                       {students.map(student => {
                         const done = studentDone(student, selectedAssignment)
-                        const acc  = new Set(subRows.filter(r => r.user_id === student.id && r.status === 'accepted').map(r => r.problem_id))
+                        const acc = new Set(subRows.filter(r => r.user_id === student.id && r.status === 'accepted').map(r => r.problem_id))
                         return (
                           <div key={student.id} className={styles.subTableRow} style={{ gridTemplateColumns: cols }}>
                             <span className={styles.miniUser}>
@@ -732,8 +776,8 @@ export default function Teacher() {
                       문제 선택 <span className={styles.required}>*</span>
                       <span className={styles.formHint}>{newAssignment.problems.length}개 선택됨</span>
                     </label>
-                    
-                    <input 
+
+                    <input
                       className={styles.formInput}
                       type="text"
                       placeholder="문제 제목 또는 태그로 검색..."
@@ -741,7 +785,7 @@ export default function Teacher() {
                       onChange={e => setProblemSearch(e.target.value)}
                       style={{ marginBottom: 12 }}
                     />
-                    
+
                     <div className={styles.problemSelect}>
                       {filteredProblems.map(p => {
                         const selected = newAssignment.problems.includes(p.id)

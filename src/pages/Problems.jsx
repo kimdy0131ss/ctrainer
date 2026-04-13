@@ -52,15 +52,15 @@ export default function Problems() {
 
   useEffect(() => {
     if (!userId || problems.length === 0) return
-    
+
     const updateSolvedStatus = async () => {
       const { data: solvedProblems } = await supabase
         .from('solved_problems')
         .select('problem_id')
         .eq('user_id', userId)
-      
+
       const solvedIds = new Set((solvedProblems || []).map(s => s.problem_id))
-      
+
       setProblems(prev =>
         prev.map(p => ({
           ...p,
@@ -68,7 +68,7 @@ export default function Problems() {
         }))
       )
     }
-    
+
     updateSolvedStatus()
   }, [userId, problems.length])
 
@@ -141,9 +141,9 @@ export default function Problems() {
             <div className={styles.filterGroup}>
               <span className={styles.filterLabel}>태그</span>
               <div className={styles.tagCloud}>
-                {allTags.map(tag => (
+                {allTags.map((tag, idx) => (
                   <button
-                    key={tag}
+                    key={`${tag}-${idx}`}
                     className={`${styles.filterBtn} ${selectedTag === tag ? styles.tagActive : ''}`}
                     onClick={() => setSelectedTag(selectedTag === tag ? null : tag)}
                   >
@@ -157,8 +157,8 @@ export default function Problems() {
           <main className={styles.main}>
             <div className={styles.searchBar}>
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className={styles.searchIcon}>
-                <circle cx="6.5" cy="6.5" r="5.5" stroke="currentColor" strokeWidth="1.5"/>
-                <path d="M11 11l3 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+                <circle cx="6.5" cy="6.5" r="5.5" stroke="currentColor" strokeWidth="1.5" />
+                <path d="M11 11l3 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
               </svg>
               <input
                 type="text"
@@ -190,9 +190,9 @@ export default function Problems() {
                     <span className={styles.rowNum}>
                       {problem.solved
                         ? <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                            <circle cx="7" cy="7" r="6.5" stroke="var(--easy)" strokeOpacity="0.6"/>
-                            <path d="M4.5 7l2 2 3-3" stroke="var(--easy)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                          </svg>
+                          <circle cx="7" cy="7" r="6.5" stroke="var(--easy)" strokeOpacity="0.6" />
+                          <path d="M4.5 7l2 2 3-3" stroke="var(--easy)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
                         : <span className={styles.numText}>{problem.id}</span>
                       }
                     </span>
@@ -200,7 +200,9 @@ export default function Problems() {
                       <span className={styles.titleText}>{problem.title}</span>
                       <span className={styles.rowTags}>
                         {problem.tags.slice(0, 2).map(tag => (
-                          <span key={tag} className={styles.rowTag}>{tag}</span>
+                          <span key={`${problem.id}-${tag}`} className={styles.rowTag}>
+                            {tag}
+                          </span>
                         ))}
                       </span>
                     </span>
