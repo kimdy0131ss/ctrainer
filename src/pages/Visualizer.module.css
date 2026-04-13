@@ -61,6 +61,7 @@
   cursor: pointer;
   transition: all 0.15s;
   min-width: 130px;
+  color: var(--text-secondary);
 }
 
 .algoTab:hover:not(:disabled) {
