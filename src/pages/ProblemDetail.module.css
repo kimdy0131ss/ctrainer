@@ -204,7 +204,7 @@
   background: var(--teal-08);
   padding: 2px 8px;
   border-radius: 5px;
-  word-break: break-all;
+  word-break: pre-wrap;
 }
 
 .exText {
