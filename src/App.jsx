@@ -5,6 +5,7 @@ import { supabase } from './supabaseClient'
 export const ThemeContext = createContext('dark')
 
 import Navbar from './components/judge/Navbar'
+import Copyright from './components/judge/Copyright'
 import Home from './pages/Home'
 import Problems from './pages/Problems'
 import ProblemDetail from './pages/ProblemDetail'
@@ -12,7 +13,7 @@ import Leaderboard from './pages/Leaderboard'
 import Profile from './pages/Profile'
 import Visualizer from './pages/Visualizer'
 import Teacher from './pages/Teacher'
-import MachineMaster from './pages/MachineMaster'
+import Introduction from './pages/Introduction'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
 import AdminPage from './pages/AdminPage'
@@ -69,12 +70,14 @@ function App() {
         <Route path="/profile/:username" element={<Profile />} />
         <Route path="/visualizer" element={<Visualizer isAdmin={isAdmin} />} />
         <Route path="/teacher" element={<Teacher />} />
-        <Route path="/machine-master" element={<MachineMaster />} />
+        <Route path="/introduction" element={<Introduction />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/admin" element={<AdminPage isAdmin={isAdmin} />} />
       </Routes>
     </BrowserRouter>
+
+    <Copyright />
     </ThemeContext.Provider>
   )
 }

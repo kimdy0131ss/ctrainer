@@ -1,7 +1,7 @@
-import styles from './MachineMaster.module.css'
+import styles from './Introduction.module.css'
 import { Link, useLocation } from 'react-router-dom'
 
-export default function MachineMaster() {
+export default function Introduction() {
   return (
     <div className={styles.page}>
       {/* 배경 */}
@@ -22,13 +22,13 @@ export default function MachineMaster() {
 
         {/* 타이틀 */}
         <h1 className={styles.title}>
-          Machine<br />
-          <span className={styles.titleGrad}>Master</span>
+          유찬아<br />
+          <span className={styles.titleGrad}>문제 좀 조사해줘</span>
         </h1>
 
         <p className={styles.subtitle}>
           단순히 코딩하는 것 뿐만 아니라<br />
-          <strong>나만의 스크립트를 설계하고 조작하는 경험</strong>
+          <strong>나만의 코드를 설계하고 조작하는 경험</strong>
         </p>
 
 
@@ -58,7 +58,7 @@ export default function MachineMaster() {
 
         {/* 한 줄 정의 */}
         <div className={styles.manifest}>
-          <p>"코드는 결과가 아니라 <em>설계의 부산물</em>이다."</p>
+          <p>"아 오늘 저녁 <em>뭐먹지</em> 배고픈데."</p>
         </div>
 
         {/* CTA */}
