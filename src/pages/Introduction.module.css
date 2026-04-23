@@ -79,13 +79,20 @@
 
 /* ── 타이틀 ── */
 .title {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+
   font-size: clamp(52px, 9vw, 96px);
   font-weight: 800;
   letter-spacing: -4px;
+
   line-height: 1.0;
   text-align: center;
+
   color: var(--text-primary);
 }
+
 .titleGrad {
   background: linear-gradient(135deg, #2dd4bf 0%, #a78bfa 60%, #f87171 100%);
   -webkit-background-clip: text;
@@ -94,7 +101,7 @@
 
 .subtitle {
   font-size: 18px;
-  line-height: 1.7;
+  line-height: 2;
   color: var(--text-secondary);
   text-align: center;
 }

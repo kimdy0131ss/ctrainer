@@ -104,12 +104,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-      <footer className={styles.footer}>
-        <div className={styles.container}>
-          <p className={styles.footerText}>© 2026 CTruct. 코더를 위해, 코더가 만든 플랫폼.<br />email : kimdy0131ss@gmail.com</p>
-        </div>
-      </footer>
     </div>
   )
 }
