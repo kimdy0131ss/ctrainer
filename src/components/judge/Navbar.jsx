@@ -6,7 +6,7 @@ import styles from './Navbar.module.css'
 const NAV_LINKS = [
   { path: '/', label: '홈' },
   { path: '/problems', label: '문제' },
-  { path: '/visualizer', label: '시각화' },
+  { path: '/visualizer', label: '알고리즘' },
   { path: '/leaderboard', label: '랭킹' },
   { path: '/teacher', label: '교사' },
   { path: '/introduction', label: '소개' },

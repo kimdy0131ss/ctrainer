@@ -169,7 +169,7 @@ export default function Teacher() {
   const handleDeleteClassroom = async () => {
     if (!activeClassroom) return
 
-    const ok = window.confirm('반을 삭제하시겠습니까? (되돌릴 수 없음)')
+    const ok = window.confirm('교실을 삭제하시겠습니까? (되돌릴 수 없음)')
     if (!ok) return
 
     try {
@@ -303,19 +303,19 @@ export default function Teacher() {
                 {classrooms.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
               </select>
             ) : (
-              <div className={styles.className}>{activeClassroom?.name || '반 없음'}</div>
+              <div className={styles.className}>{activeClassroom?.name || '교실 없음'}</div>
             )}
           </div>
         </div>
 
-        <button className={styles.newClassBtn} onClick={() => setShowNewClass(true)}>+ 새 반 만들기</button>
+        <button className={styles.newClassBtn} onClick={() => setShowNewClass(true)}>+ 새 교실 만들기</button>
         
         {activeClassroom && (
           <button
             className={styles.deleteClassBtn}
             onClick={handleDeleteClassroom}
           >
-            반 삭제
+            교실 삭제
           </button>
         )}
 
@@ -354,10 +354,10 @@ export default function Teacher() {
         {showNewClass && (
           <div className={styles.overlay} onClick={() => setShowNewClass(false)}>
             <div className={styles.modal} onClick={e => e.stopPropagation()}>
-              <h2 className={styles.modalTitle}>새 반 만들기</h2>
+              <h2 className={styles.modalTitle}>새 교실 만들기</h2>
               <input
                 className={styles.formInput}
-                placeholder="반 이름 (예: 2반 알고리즘)"
+                placeholder="교실 이름 (예: 2반 알고리즘)"
                 value={newClassName}
                 onChange={e => setNewClassName(e.target.value)}
                 onKeyDown={e => e.key === 'Enter' && handleCreateClassroom()}
@@ -375,8 +375,8 @@ export default function Teacher() {
 
         {!activeClassroom ? (
           <div className={styles.emptyState}>
-            <p>아직 반이 없습니다.</p>
-            <button className={styles.newBtn} onClick={() => setShowNewClass(true)}>+ 반 만들기</button>
+            <p>아직 교실이 없습니다.</p>
+            <button className={styles.newBtn} onClick={() => setShowNewClass(true)}>+ 교실 만들기</button>
           </div>
         ) : (
           <>

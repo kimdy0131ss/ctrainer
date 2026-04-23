@@ -41,11 +41,21 @@ export default function Introduction() {
             },
             {
               icon: '◷', color: '#a78bfa', title: 'Time-Travel Execution',
-              desc: '실행을 되감고, 멈추고, 한 줄씩 추적.'
+              desc: (
+                <>
+                  더 구체적인 프로그램 <br />
+                  — 보다 효율적인 메모리 관리
+                </>
+              )
             },
             {
               icon: '◈', color: '#fbbf24', title: 'Resource-Constrained Design',
-              desc: '변수·연산·메모리 제한 — 코딩이 최적화 문제가 된다.'
+              desc: (
+                <>
+                  알고리즘을 기초부터 활용까지 <br />
+                  — 코드를 직접 설계한다
+                </>
+              )
             },
           ].map(s => (
             <div key={s.title} className={styles.sysCard}>
